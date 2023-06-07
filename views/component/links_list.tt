@@ -1,0 +1,5 @@
+<div id="link-list">
+    <% FOREACH link IN links %>
+        <% INCLUDE component/link_capsule.tt show_username=show_username %>
+    <% END %>
+</div>

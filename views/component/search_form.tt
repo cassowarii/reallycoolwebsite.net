@@ -1,0 +1,10 @@
+            <div style="text-align: center">
+                <form action="/~<% profile.name %>/search" method="get">
+                    <% IF query %>
+                        <input type="text" name="q" value="<% query %>">
+                    <% ELSE %>
+                        <input type="text" name="q">
+                    <% END %>
+                    <input type="submit" value="Search entries!">
+                </form>
+            </div>

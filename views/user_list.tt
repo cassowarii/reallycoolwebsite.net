@@ -1,0 +1,9 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <ul>
+        <% FOREACH user IN users %>
+            <li><a href="/~<% user.name %>">~<% user.name %></a></li>
+        <% END %>
+    </ul>
+</div>

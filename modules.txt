@@ -1,0 +1,8 @@
+Here are the CPAN modules this depends on:
+
+Dancer2
+Dancer2::Plugin::Database
+Dancer2::Plugin::Auth::Extensible
+HTML::Escape
+Parse::BBCode
+Mail::Message

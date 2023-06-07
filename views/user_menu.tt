@@ -1,0 +1,17 @@
+<div id="container" style="width: 400px">
+    <div class="top-control-bar">
+        <a href="<% from_page %>">&larr; back</a>
+    </div>
+    <div style="clear: both"></div>
+    <h1>User menu</h1>
+
+    <ul id="user-menu">
+        <li><a href="/~<% user.name %>">My profile</a></li>
+        <li><a href="/~<% user.name %>/all">All my entries</a></li>
+        <li><a href="/new-entry">Add new entry</a></li>
+        <li><a href="/bookmarks">My bookmarks</a></li>
+        <li><a href="/update-profile">Update profile</a></li>
+        <li><a href="/user-settings">User settings</a></li>
+        <li><a href="/logout?return_url=<% from_page %>">Log out</a></li>
+    </ul>
+</div>

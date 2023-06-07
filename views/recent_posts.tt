@@ -1,0 +1,14 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <p>Here is a list of users who have recently added new entries.</p>
+
+    <ul>
+        <% FOREACH recent IN recents %>
+            <li>
+                <a href="/~<% recent.name | url %>"><% recent.name | html_entity %>'s <% recent.page_name | html_entity %></a>
+                <span class="extra-text"><% recent.last_post %></span>
+            </li>
+        <% END %>
+    </ul>
+</div>

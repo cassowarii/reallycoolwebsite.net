@@ -1,0 +1,37 @@
+<div id="nav">
+    <style>
+        #logobox {
+            background-image: url(<% request.uri_base %>/images/logos/small-logo-<% color %>.png);
+        }
+    </style>
+    <div class="nav-flex-container">
+        <div class="nav-logo-container">
+            <a href="/" title="reallycoolwebsite.net">
+                <div id="logobox" role="img"></div>
+            </a>
+        </div>
+        <div class="nav-path-container">
+            <% FOREACH component IN nav %>
+                <div class="nav-path-component">
+                    <div class="nav-flex-container">
+                        <% IF component.link %>
+                            <div class="nav-arrow-container">
+                                &gt;
+                            </div>
+                            <div class="nav-path-component">
+                                <a href="<% component.link | url %>"><% component.name | html_entity %></a>
+                            </div>
+                        <% ELSE %>
+                            <div class="nav-arrow-container">
+                                &gt;
+                            </div>
+                            <div class="nav-path-component">
+                                <b><% component.name | html_entity %></b>
+                            </div>
+                        <% END %>
+                    </div>
+                </div>
+            <% END %>
+        </div>
+    </div>
+</div>

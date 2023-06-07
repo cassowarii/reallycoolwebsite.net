@@ -1,0 +1,152 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <form method="POST" class="major-form" enctype="multipart/form-data" action="<% request.uri %>?<% request.query %>">
+        <div class="settings-input">
+            <label for="title-box" class="block-label required">Entry title:</label>
+            <input type="text" name="name" id="title-box" value="<% link.name | html_entity %>" maxlength=150 required>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label class="required block-label">Entry type:</label>
+            <hr>
+            <div class="flex-holder-start" style="margin-bottom:10px">
+                <div class="flex-constant">
+                    <input type="radio" id="link-radio-button" name="post_type" value="link" required <% IF post_type == "link" %>checked<% END %>>
+                </div>
+                <div class="flex-flexy">
+                    <label for="link-radio-button" class="block-label">Link to URL:</label>
+                    <input type="text" name="url" id="url-box" value="<% UNLESS link.url == "self" %><% link.url | url %><% END %>" maxlength=150>
+                </div>
+            </div>
+            <div class="flex-holder-start">
+                <div class="flex-constant">
+                    <input type="radio" id="text-radio-button" name="post_type" value="text" required <% IF post_type == "text" %>checked<% END %>>
+                </div>
+                <div class="flex-flexy">
+                    <label for="text-radio-button" class="block-label">Text</label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="desc-box" class="block-label">Your comment:</label>
+            <div class="extra-text"><a href="/formatting-guide" target="_blank">Formatting guide</a></div>
+            <textarea name="description" id="desc-box" rows=10><% link.description %></textarea>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="tag-box" class="block-label">Tags:</label>
+            <div class="extra-text">Space-separated &mdash; <a href="/~<% user.name %>/tag" target="_blank">My tag list</a></div>
+            <input type="text" name="tags" id="tag-box" value="<% link.tags | html_entity %>">
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="icon-selector-box" class="block-label">Sticker:</label>
+            <div class="form-box icon-selector">
+                <div class="icon-selector-inner" id="icon-selector-box">
+                    <% FOREACH icon_opt IN icons %>
+                        <% IF link.icon == icon_opt %>
+                            <input type="radio" name="icon" value="<% icon_opt %>" id="<% icon_opt %>-radio-button" checked>
+                        <% ELSE %>
+                            <input type="radio" name="icon" value="<% icon_opt %>" id="<% icon_opt %>-radio-button">
+                        <% END %>
+                        <label for="<% icon_opt %>-radio-button">
+                            <img src="/icons/<% icon_opt %>.png" class="icon"
+                                 alt="<% icon_opt %>" title="<% icon_opt %>" style="width: 32px; height: 32px;">
+                        </label>
+                    <% END %>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <% IF img_url %>
+                <label for="attached-image" class="block-label">
+                    Attached image:
+                </label>
+                <img src="<% request.uri_base %>/<% img_url | url %>" id="attached-image" class="over-image" style="display: block; margin-bottom: 10px">
+                <!--input type="checkbox" name="remove_attachment" id="remove-img-box" style="margin-bottom: 10px">
+                <label for="remove-img-box">Remove attached image</label-->
+                <input type="submit" name="remove_attachment" value="Remove attached image">
+                <% IF img_url != old_link.image_url AND old_link.image_url %>
+                    <input type="submit" value="Restore original attachment" name="cancel_image_remove">
+                <% END %>
+                <hr>
+                <label for="image-box" class="block-label" style="margin-bottom: 5px">Change attached image:</label>
+            <% ELSIF old_link.image_url %>
+                <div style="margin-bottom: 5px">Attached image will be removed when you press save.</div>
+                <input type="submit" value="Restore original attachment" name="cancel_image_remove">
+                <hr>
+                <label for="image-box" class="block-label" style="margin-bottom: 5px">Attach a new image:</label>
+            <% ELSE %>
+                <label for="image-box" class="block-label" style="margin-bottom: 5px">Attach an image:</label>
+            <% END %>
+            <div class="file-upload-widget">
+                <input type="file" name="image" id="image-box" accept=".png, .jpg, .gif, image/png, image/jpg, image/gif">
+                <div style="float: right">
+                    <input type="submit" name="upload" value="Upload" class="cool-button" style="vertical-align: middle">
+                </div>
+            </div>
+            <div class="extra-text" style="margin-top: 5px">Will be shrunk down to postage-stamp size (150x150)</div>
+        </div>
+        <hr>
+        <input type="hidden" name="actually_existing_image" value="<% img_url %>">
+        <input type="hidden" name="back_page" value="<% back_page %>">
+        <div class="settings-input" style="text-align: center">
+            <input type="submit" value="Preview" name="preview" class="cool-button">
+            <input type="submit" value="Save" name="save" class="cool-button highlight-button">
+            <% IF old_link.id %>
+                <input type="submit" value="Cancel" name="cancel" class="cool-button">
+            <% END %>
+        </div>
+    </form>
+</div>
+
+<% IF do_preview %>
+    <div class="link">
+        <div class="highlight-box-top" style="text-align: right">[Preview]</div>
+
+        <% IF post_type == "link" %>
+            <h2><a href="<% link.url | url %>" target="_blank"><% link.name | html_entity %></a></h2>
+            <div class="link-url"><a href="<% link.url | url %>" target="_blank"><% link.url | url %></a></div>
+        <% ELSE %>
+            <h2><% link.name | html_entity %></h2>
+            <div class="link-url"><a href="#">/~<% user.name %>/entry/???</a></div>
+        <% END %>
+        <% IF preview_youtube %>
+                <div style="text-align: center">
+                    <iframe width="448" height="252"
+                            style="max-width: 100%"
+                            src="https://www.youtube.com/embed/<% preview_youtube | url %>"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+        <% END %>
+        <div class="link-description">
+            <% IF img_url %>
+                <% IF link.url == "self" %>
+                    <img src="<% request.uri_base %>/<% img_url | url %>" class="link-image">
+                <% ELSE %>
+                    <a href="<% link.url | url %>" target="_blank">
+                        <img src="<% request.uri_base %>/<% img_url | url %>" class="link-image">
+                    </a>
+                <% END %>
+            <% END %>
+            <% preview_text %>
+        </div>
+        <div class="link-bottom-part">
+            <div class="link-tags">
+                <% FOREACH tag IN preview_tags %>
+                    <a href="/~<% link.username | url %>/tag/<% tag | url %>">#<% tag %></a>
+                <% END %>
+            </div>
+            <div class="link-icon">
+                <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %>">
+            </div>
+        </div>
+    </div>
+<% END %>

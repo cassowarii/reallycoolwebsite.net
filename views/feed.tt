@@ -1,0 +1,31 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <p>This page shows all posts from users you're following.</p>
+
+    <% IF (not first_page or not last_page) %>
+    <p>You're currently on page <b><% pagenum %></b>.</p>
+    <% END %>
+
+    <% IF first_page == 0 %>
+        <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+    <% END %>
+    <% IF last_page == 0 %>
+        <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+    <% END %>
+</div>
+
+<% INCLUDE component/links_list.tt show_username=1 %>
+
+<% IF (not first_page or not last_page) %>
+    <div id="list-footer">
+        <% IF first_page == 0 %>
+            <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+        <% END %>
+        <% IF last_page == 0 %>
+            <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+        <% ELSE %>
+            <p style="float: right; margin: 0">The end.</p>
+        <% END %>
+    </div>
+<% END %>

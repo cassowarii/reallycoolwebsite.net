@@ -1,0 +1,49 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <div style="text-align: center; margin-bottom: 20px; margin-top: 30px">
+        <img src="full-logo.png" alt="cassowary's linkgarden" class="logo">
+    </div>
+    <p>Welcome to my garden of links.
+    I'm <a href="/~cassowary">~cassowary</a>,
+    and this is a collection of stuff from the Internet that I think is interesting.</p>
+
+    <p>I'm going to try to focus on independent interesting websites,
+    but I might also put Youtube videos and such here that I find interesting as well.</p>
+
+    <p>Basically, the idea is it's like a publicly-available,
+    tagged/searchable set of bookmarks.</p>
+
+    <p>You could also think about it like a microblog where every post
+    is a link to somewhere else on the internet, rather than being
+    about my life.</p>
+
+    <p>It looks kind of retro because I've written it all by hand*.
+    It's just a bunch of PHP scripts running over a very simple mysql database &mdash;
+    there is literally no javascript on this website.
+    I'll probably update the visual styling at some point, but for
+    now let's just party like it's 2004?</p>
+
+    <p style="font-size: 70%">* and because I'm using the default browser fonts</p>
+
+    <p>The idea is inspired in part by
+    <a href="https://www.marginalia.nu/log/19-website-discoverability-crisis/">this blog post</a>
+    that calls for more independent websites to make interesting public bookmark pages,
+    and also inspired partially by this
+    <a href="https://satyrs.eu/linkroll/">linkroll page on satyrs.eu</a>,
+    which has a lot of interesting stuff in it.
+    I thought it would be fun to do a similar project.</p>
+
+    <p>The URL is <b>reallycoolwebsite.net</b> because I happened to have the URL lying
+    around unused, and because most &ldquo;linkgarden.whatever&rdquo; URLs were already
+    taken.</p>
+
+    <p>I'm toying around with the idea of allowing other people to register on the
+    site here and turning it into kind of a social bookmarking project, but that
+    dream is a long ways off. Still... maybe check back later... :o</p>
+
+    <p>You can click the little <img src="small-logo.png" style="vertical-align:bottom">
+    icon in the upper left to go back to the main page, or click below:</p>
+
+    <p style="text-align:center"><a href="index.php">Go back to the main page</a></p>
+</div>

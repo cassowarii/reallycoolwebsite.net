@@ -1,0 +1,46 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <% IF tagdesc %>
+        <p style="margin-top: 10px"><% tagdesc %></p>
+        <% IF profile.name == user.name %>
+            <p><a href="/~<% profile.name %>/tag/<% tagname %>/edit">Edit tag description</a></p>
+        <% END %>
+    <% ELSIF profile.name == user.name %>
+        <a href="/~<% profile.name %>/tag/<% tagname %>/edit">Add a description for this tag</a>
+    <% END %>
+
+    <% IF (not first_page or not last_page) %>
+        <p>You're currently on page <b><% pagenum %></b>.</p>
+    <% END %>
+
+    <% IF first_page == 0 %>
+        <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+    <% END %>
+    <% IF last_page == 0 %>
+        <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+    <% END %>
+</div>
+
+<% INCLUDE component/links_list.tt %>
+
+<div id="list-footer">
+    <% IF (not first_page or not last_page) %>
+        <% IF first_page == 0 %>
+            <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+        <% END %>
+        <% IF last_page == 0 %>
+            <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+        <% ELSE %>
+            <p style="float: right; margin: 0">The end.</p>
+        <% END %>
+        <div style="clear: both"></div>
+        <hr>
+    <% END %>
+
+    <% INCLUDE component/tag_cloud.tt selected=tagname %>
+
+    <hr>
+
+    <div style="text-align: center"><a href="/~<% profile.name %>"><% profile.name %>'s <% profile.page_name %></a></div>
+</div>

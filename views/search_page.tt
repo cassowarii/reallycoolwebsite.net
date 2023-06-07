@@ -1,0 +1,19 @@
+<style>
+    .search-bg-thing {
+        background-size: 30px 30px;
+        background-position: 0 37px;
+        background-image: radial-gradient(circle at center, white 0 15.5px, #eee 15.5px 19px, white 19px 100%);
+    }
+</style>
+
+<div id="container" class="search-bg-thing">
+    <% INCLUDE component/nav.tt %>
+
+    <div style="padding: 30px 0">
+        <% INCLUDE component/search_form.tt %>
+    </div>
+</div>
+
+<% IF links %>
+    <% INCLUDE component/links_list.tt %>
+<% END %>

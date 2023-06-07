@@ -1,0 +1,20 @@
+<!-- Tag cloud -->
+<div class="tag-cloud">
+<% IF tag_cloud.ntags %>
+    <% FOREACH tag IN tag_cloud.tags %>
+        <% IF tag.name == selected %>
+            <b style="font-size: <%tag.size %>px"
+                class="tag-cloud-entry">
+                    <% tag.name %>
+            </b>
+        <% ELSE %>
+            <a style="font-size: <% tag.size %>px"
+                href="/~<% profile.name | url %>/tag/<% tag.name | url %>"
+                class="tag-cloud-entry">
+                    <% tag.name %>
+            </a>
+        <% END %>
+    <% END %>
+<% ELSE %>
+    <div class="extra-text">no tags yet :o</div>
+<% END %>

@@ -1,0 +1,91 @@
+<div class="link">
+    <div class="anchor-container"><div class="anchor" id="entry-id-<% link.id %>"></div></div>
+    <% IF show_username %>
+        <div class="top-control-bar">
+            <a href="/~<% link.username | url %>" style="margin-left:0">~<% link.username | html_entity %></a>
+        </div>
+    <% END %>
+    <div class="link-added-date">
+        <a href="/~<% link.username %>/entry/<% link.id %>" title="added <% link.created %><% IF link.created != link.updated %>, updated <%link.updated %><% END %>">
+            <% link.created_day %>
+        </a>
+    </div>
+    <% IF link.url == "self" %>
+        <h2><a href="/~<% link.username %>/entry/<% link.id %>" target="_blank"><% link.name | html_entity %></h2>
+    <% ELSE %>
+        <h2><a href="<% link.url | url %>" target="_blank"><% link.name | html_entity %></a></h2>
+    <% END %>
+    <div class="link-url">
+        <% IF link.url == "self" %>
+            <a href="/~<% link.username %>/entry/<% link.id %>" target="_blank">/~<% link.username %>/entry/<% link.id %></a>
+        <% ELSE %>
+            <a href="<% link.url | url %>" target="_blank"><% link.url | url %></a>
+        <% END %>
+    </div>
+    <% IF link.youtube %>
+        <% IF NOT user OR user.disable_youtube_embeds %>
+            <a href="https://youtube.com/watch?v=<% link.youtube | url %>&autoplay=1" target="_blank" class="youtube-link">
+                <div class="youtube-thumbnail-container">
+                    <img src="https://img.youtube.com/vi/<% link.youtube | url %>/hqdefault.jpg" class="youtube-thumbnail" alt="YouTube thumbnail for <% link.name | html_entity %>">
+                </div>
+            </a>
+        <% ELSE %>
+            <div style="text-align: center">
+                <iframe width="448" height="252" style="max-width: 100%" src="https://www.youtube.com/embed/<% link.youtube | url %>" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        <% END %>
+    <% END %>
+    <div class="link-description">
+        <% IF link.image_url %>
+            <% IF link.url == "self" %>
+                <a href="/~<% link.username %>/entry/<% link.id %>">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="illustrative image for <% link.name %>">
+                </a>
+            <% ELSE %>
+                <a href="<% link.url | url %>" target="_blank">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="illustrative image for <% link.name %>">
+                </a>
+            <% END %>
+        <% END %>
+        <% link.formatted_description %>
+    </div>
+    <div class="link-bottom-part">
+        <div class="link-tags">
+            <% FOREACH tag IN link.tags %>
+                <a href="/~<% link.username | url %>/tag/<% tag | url %>">#<% tag %></a>
+            <% END %>
+        </div>
+        <div class="link-icon">
+            <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %>">
+        </div>
+    </div>
+
+    <% IF NOT hide_control_bar %>
+        <% IF user %>
+            <div class="control-bar">
+                <% IF link.username == user.name %>
+                    <% IF link.nhearts > 0 %>
+                        <div class="control-bar-heart-count">
+                            <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
+                        </div>
+                    <% END %>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
+                <% ELSE %>
+                    <!-- If logged in but it's not our post, show heart in control bar instead -->
+                    <% IF link.bookmark %>
+                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/unbookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/bookmark.png" title="Remove bookmark"></span></a>
+                    <% ELSE %>
+                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/bookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/emptybookmark.png" title="Add bookmark"></span></a>
+                    <% END %>
+                    <% IF link.hearted %>
+                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/unheart?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/heart.png" title="Unheart"></span></a>
+                    <% ELSE %>
+                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/heart?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/emptyheart.png" title="Heart"></span></a>
+                    <% END %>
+                <% END %>
+            </div>
+        <% END %>
+    <% END %>
+</div>

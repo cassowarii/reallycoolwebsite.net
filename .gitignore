@@ -1,0 +1,7 @@
+_do_not_upload/*
+aseprite/*
+config.yml
+*.swp
+public/pics/*
+public/user_pics/*
+public/.well-known/*

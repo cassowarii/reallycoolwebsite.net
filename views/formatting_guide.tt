@@ -1,0 +1,137 @@
+<style>
+    table {
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    td, th {
+        border: 1px solid var(--divider-line-color);
+    }
+
+    td:first-child, th:first-child {
+        padding-right: 10px;
+        width: 45%;
+        border-left: 0;
+    }
+
+    td:last-child, th:last-child {
+        border-right: 0;
+        padding-left: 10px;
+    }
+
+    th {
+        border-top: 0;
+        text-align: left;
+        padding-bottom: 3px;
+        margin-bottom: 3px
+    }
+
+    td {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    tr:last-child td {
+       border-bottom: 0;
+    }
+</style>
+
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    Link descriptions and profile content can be formatted using BBCode:
+
+    <table>
+        <thead>
+            <tr>
+                <th>Expression</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><tt>[b]text[/b]</tt></td>
+                <td><b>text</b></td>
+            </tr>
+            <tr>
+                <td><tt>[i]text[/i]</tt></td>
+                <td><i>text</i></td>
+            </tr>
+            <tr>
+                <td><tt>[u]text[/u]</tt></td>
+                <td><u>text</u></td>
+            </tr>
+            <tr>
+                <td><tt>[s]text[/s]<tt></td>
+                <td><s>text</s></td>
+            </tr>
+            <tr>
+                <td><tt>[code]text[/code]</tt></td>
+                <td><tt>text</tt></td>
+            </tr>
+            <tr>
+                <td style="word-break:break-all">
+                    <tt>[url=http://www.example.com]link[/url]</tt>
+                </td>
+                <td><a href="http://www.example.com">link</a></td>
+            </tr>
+            <tr>
+                <td><tt>[list]<br>
+                [*]list entry 1<br>
+                [*]list entry 2<br>
+                [*]list entry 3<br>
+                [/list]</tt></td>
+                <td><ul>
+                    <li>list entry 1</li>
+                    <li>list entry 2</li>
+                    <li>list entry 3</li>
+                </ul></td>
+            </tr>
+            <tr>
+                <td><tt>[list=1]<br>
+                [*]list entry 1<br>
+                [*]list entry 2<br>
+                [*]list entry 3<br>
+                [/list]</tt></td>
+                <td><ol>
+                    <li>list entry 1</li>
+                    <li>list entry 2</li>
+                    <li>list entry 3</li>
+                </ul></td>
+            </tr>
+            <tr>
+                <td><tt>[list=a]<br>
+                [*]list entry 1<br>
+                [*]list entry 2<br>
+                [*]list entry 3<br>
+                [/list]</tt></td>
+                <td><ol type='a'>
+                    <li>list entry 1</li>
+                    <li>list entry 2</li>
+                    <li>list entry 3</li>
+                </ul></td>
+            </tr>
+            <tr>
+                <td><tt>
+                    [quote]To be, or not to be, that is the question:
+                    whether 'tis nobler in the mind to suffer
+                    the slings and arrows of outrageous fortune,
+                    or to take arms against a sea of troubles,
+                    and by opposing end them?[/quote]
+                </tt></td>
+                <td><blockquote style="margin-top: 0; margin-bottom: 0">
+                    To be, or not to be, that is the question:
+                    whether 'tis nobler in the mind to suffer
+                    the slings and arrows of outrageous fortune,
+                    or to take arms against a sea of troubles,
+                    and by opposing end them?
+                </blockquote></td>
+            </tr>
+        </tbody>
+    </table>
+
+    You can also link to other people's profiles by typing their name starting with a ~,
+    as in <a href="/~cassowary">~cassowary</a>, and you can link to (your own) tag pages
+    by typing a tag name starting with a # as in <a href="/~cassowary/tag/song">#song</a>.
+</div>

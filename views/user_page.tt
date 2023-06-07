@@ -1,0 +1,42 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <h1><% profile.name %>'s <% profile.page_name %></h1>
+
+    <% profile.formatted_short_desc %>
+
+    <% IF user.name == profile.name %>
+        <% IF profile.formatted_short_desc %>
+            <p><a href="/update-profile">Edit the above description</a></p>
+        <% ELSE %>
+            <p><a href="/update-profile">Add a profile description</a></p>
+        <% END %>
+    <% END %>
+
+    <ul>
+        <% IF user AND user.name != profile.name %>
+            <% IF following %>
+                <li><a href="/~<% profile.name %>/unfollow">&minus; Unfollow <% profile.name %>'s <% profile.page_name %></a></li>
+            <% ELSE %>
+                <li><a href="/~<% profile.name %>/follow">&plus; Follow <% profile.name %>'s <% profile.page_name %></a></li>
+            <% END %>
+        <% END %>
+        <li><a href="/~<% profile.name %>/about">About <% profile.name %>'s <% profile.page_name %></a></li>
+        <li><a href="/~<% profile.name %>/all">View all entries, newest first</a></li>
+        <li><a href="/~<% profile.name %>/random">View a random entry</a></li>
+        <li>
+            <a href="/~<% profile.name %>/rss">Subscribe via RSS</a>
+            <span class="extra-text">(<a href="/static/about-rss.html" target="_blank">what?</a>)</span>
+        </li>
+    </ul>
+
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 5px;">
+        Search links by URL, title or description:
+    </div>
+    <% INCLUDE component/search_form.tt %>
+
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 7px">
+        Browse by tag:
+    </div>
+    <% INCLUDE component/tag_cloud.tt %>
+</div>

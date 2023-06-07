@@ -1,0 +1,42 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <p>This page shows the posts you've bookmarked.</p>
+
+    <% IF (not first_page or not last_page) %>
+        <p>You're currently on page <b><% pagenum %></b>.</p>
+    <% END %>
+
+    <% IF first_page == 0 %>
+        <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+    <% END %>
+    <% IF last_page == 0 %>
+        <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+    <% END %>
+</div>
+
+<% IF links.size > 0 %>
+    <% INCLUDE component/links_list.tt %>
+<% ELSE %>
+    <div class="link">
+        You can bookmark posts by clicking the <img src="/icons/emptybookmark.png" style="vertical-align:middle"> icon in the corner of an entry.
+        Bookmarks are not shown to the person who made the entry.
+    </div>
+<% END %>
+
+<div id="list-footer">
+    <% IF (not first_page or not last_page) %>
+        <% IF first_page == 0 %>
+            <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>
+        <% END %>
+        <% IF last_page == 0 %>
+            <p style="float: right; margin: 0"><a href="<% base_list_url %>/page/<% pagenum + 1 %>">Next page &rarr;</a></p>
+        <% ELSE %>
+            <p style="float: right; margin: 0">The end.</p>
+        <% END %>
+        <div style="clear: both"></div>
+        <hr>
+    <% END %>
+
+    <div style="text-align: center"><a href="/">Homepage</a></div>
+</div>

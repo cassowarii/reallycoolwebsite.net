@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title><% title %></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+        <link rel="stylesheet" href="<% request.uri_base %>/css/linkgarden.css">
+        <link rel="stylesheet" href="<% request.uri_base %>/css/colors/<% color or 'blank' %>.css">
+
+        <link rel="prefetch" href="<% request.uri_base %>/icons/play-hover.png">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/red.css">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/orange.css">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/yellow.css">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/green.css">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/blue.css">
+        <link rel="prefetch" href="<% request.uri_base %>/css/colors/purple.css">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-red.png">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-orange.png">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-yellow.png">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-green.png">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-blue.png">
+        <link rel="prefetch" href="<% request.uri_base %>/images/logos/small-logo-purple.png">
+
+        <link rel="icon" href="/favicons/<% color %>/favicon.ico">
+    </head>
+
+    <body>
+        <% IF is_ctparam_error %>
+            <% INCLUDE err.tt %>
+        <% ELSE %>
+            <% IF user %>
+                <div id="user-bar">
+                    <a href="/~<% user.name %>">~<% user.name %></a>
+                    <div style="float:right">
+                        <a href="/~<% user.name %>/all" style="display:inline-block;margin-right:4px" title="All my entries">
+                            <img src="/menu/all.png" width="24" height="24">
+                        </a>
+                        <a href="/new-entry" style="display:inline-block;margin-right:4px" title="New entry">
+                            <img src="/menu/new.png" width="24" height="24">
+                        </a>
+                        <% IF from_page %>
+                            <a href="/user-menu?page=<% from_page %>" style="display:inline-block;margin-right:4px" title="User menu">
+                                <img src="/menu/menu.png" width="24" height="24">
+                            </a>
+                        <% ELSE %>
+                            <a href="/user-menu?page=<% request.path %>" style="display:inline-block;margin-right:4px" title="User menu">
+                                <img src="/menu/menu.png" width="24" height="24">
+                            </a>
+                        <% END %>
+                    </div>
+                </div>
+            <% ELSE %>
+                <% IF not hide_login_button %>
+                    <div id="login-button">
+                        <a href="/login?return_url=<% request.path %>">Log in &rarr;</a>
+                    </div>
+                <% END %>
+            <% END %>
+
+            <% IF flash_msg %>
+                <div id="flash-msg-container">
+                    <div id="flash-msg">
+                        <% IF flash_icon %>
+                            <img src="/flash-icons/<% flash_icon %>.png">
+                        <% END %>
+
+                        <% flash_msg %>
+                    </div>
+                </div>
+            <% END %>
+
+            <% content %>
+        <% END %>
+    </body>
+</html>

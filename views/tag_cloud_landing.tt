@@ -1,0 +1,5 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <% INCLUDE component/tag_cloud.tt %>
+</div>

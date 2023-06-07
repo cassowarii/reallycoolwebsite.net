@@ -1,0 +1,12 @@
+            <div id="container" style="width: 400px">
+                <h1>Error</h1>
+                The server says:
+                <blockquote>
+                    <tt><% error %></tt>
+                </blockquote>
+                Sorry. :(
+
+                <hr>
+
+                <div style="text-align:center; margin-top:10px"><a href="/">Back to homepage</a></div>
+            </div>

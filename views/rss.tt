@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="0.91">
+    <channel>
+        <title><% profile.name | html_entity %>'s <% profile.page_name | html_entity %></title>
+        <link>https://reallycoolwebsite.net/~<% profile.name | url %></link>
+        <description>
+            <![CDATA[
+                <% profile.formatted_short_desc | html_entity %>
+            ]]>
+        </description>
+
+        <% FOREACH entry IN results %>
+            <item>
+                <title><% entry.name %></title>
+                <description>
+                    <![CDATA[
+                        <% entry.formatted_description %>
+                        <p>
+                        <% IF entry.url == "self" %>
+                            View post:
+                            <a href="https://reallycoolwebsite.net/~<% profile.name | url %>/entry/<% entry.id %>">
+                                https://reallycoolwebsite.net/~<% profile.name %>/entry/<% entry.id %>
+                            </a>
+                        <% ELSE %>
+                            View link: <a href="<% entry.url | url %>" target="_blank"><% entry.url %></a>
+                        <% END %>
+                    ]]>
+                </description>
+                <link>https://reallycoolwebsite.net/~<% profile.name | url %>/entry/<% entry.id %></link>
+            </item>
+        <% END %>
+    </channel>
+</rss>

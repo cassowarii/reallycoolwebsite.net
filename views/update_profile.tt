@@ -1,0 +1,33 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <form method="POST" action="" class="major-form">
+        <div class="settings-input">
+            <label for="short-desc-box" class="block-label">Page name:</label>
+            <div style="display: flex; flex-direction: row; align-items: baseline">
+                <div style="flex: 0 0 auto">
+                    <% user.name %>'s&nbsp;
+                </div>
+                <div style="flex: 1 0 auto">
+                    <input type="text" name="page_name" value="<% user.page_name %>" style="width: 100%; box-sizing: border-box" maxlength=30>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="short-desc-box" class="block-label">Short description:</label>
+            <div class="extra-text">Shown on main user page &mdash; <a href="/formatting-guide" target="_blank">Formatting guide</a></div>
+            <textarea name="short_desc" id="short-desc-box" rows=6><% user.short_desc %></textarea>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="long-desc-box" class="block-label">Long description:</label>
+            <div class="extra-text">Shown on &ldquo;about&rdquo; user page &mdash; <a href="/formatting-guide" target="_blank">Formatting guide</a></div>
+            <textarea name="long_desc" id="long-desc-box" rows=10><% user.long_desc %></textarea>
+        </div>
+        <hr>
+        <div class="settings-input" style="text-align: center">
+            <input type="submit" value="Save" class="cool-button">
+        </div>
+    </form>
+</div>

@@ -1,0 +1,7 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <p>Your account has been created!</p>
+
+    <p>You can now <a href="/login">log in</a>.
+</div>

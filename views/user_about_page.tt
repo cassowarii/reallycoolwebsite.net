@@ -1,0 +1,28 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <h1>About <% profile.name %>'s <% profile.page_name %></h1>
+
+    <% IF profile.formatted_long_desc %>
+        <% profile.formatted_long_desc %>
+    <% ELSE %>
+        <p>(This user has not provided any additional information.)</p>
+    <% END %>
+
+    <div style="margin-top: 20px; text-align: right">
+        <div class="extra-text">Account created <% profile.created %></div>
+        <div class="extra-text"><% num_posts %> entries, <% num_tags %> tags</div>
+    </div>
+
+    <p style="text-align:center">
+        <a href="/~<% profile.name %>">
+            Go back to <% profile.name %>'s <% profile.page_name %>
+        </a>
+    </p>
+
+    <% IF profile.name == user.name %>
+        <div class="control-bar">
+            <a href="/update-profile">edit this page</a>
+        </div>
+    <% END %>
+</div>

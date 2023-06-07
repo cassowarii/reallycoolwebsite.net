@@ -1,0 +1,17 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <h1>Editing &lsquo;<% tag.name | html_entity %>&rsquo;</h1>
+
+    <form method="POST" class="major-form">
+        <div class="settings-input">
+            <label for="desc-box" class="block-label">Tag description:</label>
+            <div class="extra-text">Shown on tag page &mdash; <a href="/formatting-guide" target="_blank">Formatting guide</a></div>
+            <textarea name="description" id="desc-box" rows=6><% tag.description | html_entity %></textarea>
+        </div>
+        <hr>
+        <div class="settings-input" style="text-align: center">
+            <input type="submit" value="Save" class="cool-button">
+        </div>
+    </form>
+</div>

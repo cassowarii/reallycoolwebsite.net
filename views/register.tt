@@ -1,0 +1,40 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <form method="POST" action="" class="major-form">
+        <div class="settings-input">
+            <label for="username-box" class="block-label required">Desired username:</label>
+            <input type="text" name="username" id="username-box" required value="<% username %>">
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="password-box" class="block-label required">Password:</label>
+            <input type="password" name="password" id="password-box" required>
+            <hr>
+            <label for="confirm-password-box" class="block-label required">Confirm password:</label>
+            <input type="password" name="confirm_password" id="confirm-password-box" required>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="email-box" class="block-label">Email address:</label>
+            <div class="extra-text">We will never email you unless you request it</div>
+            <input type="text" name="email" id="email-box" value="<% email %>">
+        </div>
+        <hr>
+        <div class="settings-input">
+            <label for="math-box" class="block-label required">What is <% math1 %> plus <% math2 %>, and which planet do you live on?</label>
+            <div class="extra-text">Enter both answers with a space in between.</div>
+            <input type="text" name="math" id="math-box" required value="<% math %>">
+        </div>
+        <hr>
+        <div class="settings-input" style="text-align: center">
+            <input type="hidden" name="math1" value="<% math1 %>">
+            <input type="hidden" name="math2" value="<% math2 %>">
+            <input type="submit" value="Register" class="cool-button">
+        </div>
+    </form>
+    <div style="margin-top: 20px"></div>
+    <div style="text-align: center">
+        <a href="/static/privacy-policy.html" target="_blank">privacy policy</a>
+    </div>
+</div>

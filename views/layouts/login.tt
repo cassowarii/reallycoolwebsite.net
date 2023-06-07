@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title><% title %></title>
+
+        <meta charset="<% settings.charset %>">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        <link rel="stylesheet" href="<% request.uri_base %>/css/linkgarden.css">
+
+        <link rel="stylesheet" href="<% request.uri_base %>/css/colors/blank.css">
+
+        <link rel="icon" href="/favicons/blank/favicon.ico">
+    </head>
+    <body>
+        <div style="margin-top: 20px"></div>
+
+        <% IF vars.login_failed %>
+            <div id="flash-msg-container">
+                <div id="flash-msg" style="min-width: 300px">
+                    <img src="/flash-icons/error.png" style="vertical-align: middle; width: 18px; height: 16px; image-rendering: pixelated">
+
+                    <div style="display: inline-block; text-align: left; max-width: 250px; vertical-align: middle">
+                        Login failed.<br>
+                        Check your username and password,
+                        and try again.
+                    </div>
+                </div>
+            </div>
+        <% END %>
+
+        <div id="container" style="width: 400px">
+            <form method = "post" lpformnum="1" class="login-form major-form">
+                <h1>Log in</h1>
+
+                <div class="settings-input">
+                    <label for="username" class="block-label">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" required autofocus>
+                </div>
+                <hr>
+                <div class="settings-input">
+                    <label for="password" class="block-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <hr>
+                <input type="hidden" name="return_url" value="<% return_url %>">
+                <button class="cool-button" type="submit">Log in</button>
+            </form>
+
+            <hr style="margin-top: 20px">
+            <div style="text-align: center">Need an account? <a href="/register">Register here</a></div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <form method="POST" action="" class="major-form">
+        <div class="settings-input">
+            <label for="email-box" class="block-label">Email address:</label>
+            <div class="extra-text">We will never email you unless you request it</div>
+            <input type="text" name="email" id="email-box" value="<% email %>">
+        </div>
+        <hr>
+        <div class="settings-input">
+            To change your password, enter your old password
+            and your new password below.
+            <hr>
+            <label for="old-password-box" class="block-label">Old password:</label>
+            <input type="password" name="old_password" id="old-password-box">
+            <hr>
+            <label for="new-password-box" class="block-label">New password:</label>
+            <input type="password" name="password" id="new-password-box">
+            <hr>
+            <label for="confirm-password-box" class="block-label">Confirm new password:</label>
+            <input type="password" name="confirm_password" id="confirm-password-box">
+        </div>
+        <hr>
+        <div class="settings-input">
+            <% IF disable_youtube == 1 %>
+                <input type="checkbox" name="inline_youtube" id="inline-youtube-box">
+            <% ELSE %>
+                <input type="checkbox" name="inline_youtube" id="inline-youtube-box" checked>
+            <% END %>
+            <label for="inline-youtube-box">Load YouTube embeds inline</label>
+            <div class="extra-text">YouTube videos play embedded in page, but page loads slower and Google might track you</div>
+        </div>
+        <hr>
+        <div class="settings-input" style="text-align: center">
+            <input type="hidden" name="username" value="<% user.name %>">
+            <input type="submit" value="Save" class="cool-button">
+        </div>
+    </form>
+</div>

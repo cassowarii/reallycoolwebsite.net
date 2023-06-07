@@ -1,0 +1,29 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <div style="text-align: center; margin-bottom: 20px; margin-top: 30px">
+        <img src="images/logos/full-logo-<% color %>.png" alt="reallycoolwebsite.net" class="logo" style="width: 352px; height: 40px">
+    </div>
+    <p>Hi there! Welcome to reallycoolwebsite.net.</p>
+
+    <p>This is a website for what I'm calling <b>&lsquo;internet scrapbooking&rsquo;</b>.
+    It's like a mix between a &lsquo;social bookmarking&rsquo; site and a
+    micro-blogging platform -- you save pages you find interesting from the internet,
+    but you can include little quotes or small snippet screenshots and write descriptions
+    about why you like each page.</p>
+
+    <p>The site is also designed to be very lightweight and usable even on bad connections.
+    I also added a &ldquo;follow&rdquo; feature so you can follow other people's accounts.</p>
+
+    <% IF not user %>
+        <p>If you'd like to register for an account, you can do so
+        <a href="/register">here</a>.
+        <!-- For examples of what to post on the site, view recently-updated pages
+        <a href="/recent">here</a>. (There aren't many accounts yet... but maybe
+        that will change in future!) --></p>
+    <% END %>
+
+    <p>Ideally I will include more &lsquo;discovery&rsquo; features in the future,
+    so people can actually find accounts on the website, but right now you'll have
+    to tell people about the existence of your page manually, lol.</p>
+</div>

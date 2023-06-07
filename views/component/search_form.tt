@@ -5,6 +5,6 @@
                     <% ELSE %>
                         <input type="text" name="q">
                     <% END %>
-                    <input type="submit" value="Search entries!">
+                    <input type="submit" value="Search!">
                 </form>
             </div>

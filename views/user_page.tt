@@ -25,13 +25,13 @@
         <li><a href="/~<% profile.name %>/all">View all entries, newest first</a></li>
         <li><a href="/~<% profile.name %>/random">View a random entry</a></li>
         <li>
-            <a href="/~<% profile.name %>/rss">Subscribe via RSS</a>
+            <a href="/~<% profile.name %>/rss">Subscribe via RSS <img src="/icons/rss.png" style="vertical-align:top" role="presentation"></a>
             <span class="extra-text">(<a href="/static/about-rss.html" target="_blank">what?</a>)</span>
         </li>
     </ul>
 
     <div style="text-align: center; margin-top: 30px; margin-bottom: 5px;">
-        Search links by URL, title or description:
+        Search entries by URL, title or description:
     </div>
     <% INCLUDE component/search_form.tt %>
 

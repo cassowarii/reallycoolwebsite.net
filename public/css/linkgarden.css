@@ -700,3 +700,17 @@ img.icon {
     position: absolute;
     top: -50px;
 }
+
+.comment-listing {
+}
+
+#write-comment-box {
+    margin: 0 auto;
+    margin-top: 25px;
+    border: 1px solid var(--dark-accent-color);
+    box-shadow: 5px 5px 0 var(--dark-accent-color);
+    max-width: 600px;
+    background-color: white;
+    padding: 10px;
+    overflow: auto;
+}

@@ -49,3 +49,21 @@
             <hr>
             <div style="text-align: center"><a href="/~<% profile.name %>"><% profile.name %>'s <% profile.page_name %></a></div>
         </div>
+    </div>
+    <div id="comment-listing">
+        <% IF user %>
+            <div id="write-comment-box">
+                <form action="/~<% profile.name %>/entry/<% link.id %>/leave-comment" method="POST" class="major-form">
+                    <div class="settings-input">
+                        <label class="block-label" for="comment-input-box">Leave a comment:</label>
+                        <textarea name="comment" id="comment-input-box" rows=5></textarea>
+                        <hr>
+                        <div style="text-align: right">
+                            <input type="submit" value="Post comment" class="cool-button">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <% ELSE %>
+        <% END %>
+    </div>

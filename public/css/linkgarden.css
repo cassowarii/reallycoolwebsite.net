@@ -701,10 +701,7 @@ img.icon {
     top: -50px;
 }
 
-.comment-listing {
-}
-
-#write-comment-box {
+#comment-box {
     margin: 0 auto;
     margin-top: 25px;
     border: 1px solid var(--dark-accent-color);

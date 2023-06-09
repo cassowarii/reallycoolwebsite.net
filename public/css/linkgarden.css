@@ -210,7 +210,7 @@ img.youtube-thumbnail {
     color: var(--divider-line-color);
 }
 
-.link-added-date {
+.added-date {
     float: right;
     text-align: right;
     font-size: 12px;
@@ -218,13 +218,13 @@ img.youtube-thumbnail {
     font-style: oblique;
 }
 
-.link-added-date a {
+.added-date a {
     text-decoration: none;
     color: #555;
     font-weight: normal;
 }
 
-.link-added-date a:hover {
+.added-date a:hover {
     text-decoration: none;
 }
 
@@ -710,4 +710,28 @@ img.icon {
     background-color: white;
     padding: 10px;
     overflow: auto;
+}
+
+.comment-entry:target {
+    background: linear-gradient(to bottom, var(--light-hl-color) 0, transparent 10px calc(100% - 10px), var(--light-hl-color) 100%);
+    padding: 8px 10px;
+    margin: -8px -10px;
+}
+
+.comment-footer {
+    text-align: right;
+    font-size: 12px;
+    color: #555;
+    font-style: oblique;
+}
+
+.comment-footer a {
+    font-weight: normal;
+    text-decoration: underline;
+    color: var(--divider-line-color);
+    margin: 0 5px;
+}
+
+.caution {
+    background: repeating-linear-gradient(45deg, #fff9e3 0 20px, #ebebeb 20px 40px);
 }

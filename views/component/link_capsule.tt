@@ -5,7 +5,7 @@
             <a href="/~<% link.username | url %>" style="margin-left:0">~<% link.username | html_entity %></a>
         </div>
     <% END %>
-    <div class="link-added-date">
+    <div class="added-date">
         <a href="/~<% link.username %>/entry/<% link.id %>" title="added <% link.created %><% IF link.created != link.updated %>, updated <%link.updated %><% END %>">
             <% link.created_day %>
         </a>

@@ -388,7 +388,7 @@ get '/~:user/entry/:id/delete/?' => require_login sub {
     }
 
     if (logged_in_user()->{name} ne $link->{username}) {
-        redirect '/';
+        return redirect_to_prev_view($link_id, query_parameters->get('page'));
     }
 
     template 'confirm_delete' => {

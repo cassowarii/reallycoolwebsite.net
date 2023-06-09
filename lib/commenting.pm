@@ -14,9 +14,8 @@ use Parse::BBCode;
 
 use util;
 
-# CRUD
+# CRUD, baybee
 
-#C
 sub leave_comment {
     my ($post_id, $sticker, $comment_text) = @_;
 
@@ -26,34 +25,43 @@ sub leave_comment {
     $stmt->execute($post_id, logged_in_user->{id}, $sticker, $comment_text);
 }
 
-#R
 sub get_comment {
     my ($comment_id) = @_;
 
     my $stmt = database('viewer')->prepare(
-        "SELECT * FROM linkgarden_comments WHERE id = ?"
+        "SELECT cmt.*, u.name username
+            FROM linkgarden_comments cmt
+            INNER JOIN linkgarden_users u ON cmt.author = u.id
+            WHERE cmt.id = ?"
     );
     $stmt->execute($comment_id);
 
     return $stmt->fetchrow_hashref;
 }
 
-#U
 sub edit_comment {
     # TODO
 }
 
-#D
-sub delete_comment {
-    my ($comment_id) = @_;
+get '/comment/:id/?' => sub {
+    my $comment_id = route_parameters->get('id');
+    my $comment = get_comment($comment_id);
 
-    my $stmt = database('link_creator')->prepare(
-        "DELETE FROM linkgarden_comments WHERE id = ?"
-    );
-    $stmt->execute($comment_id);
-}
+    if (not defined $comment) {
+        say "got here!";
+        status 'not_found';
+        return template 'err', {
+            error => "No comment with ID $comment_id found. It may have been deleted."
+        };
+    }
 
-post '/~:user/entry/:id/leave-comment' => require_login sub {
+    my $post_id = $comment->{post};
+    my $post = get_link_by_id($post_id);
+
+    return redirect "/~$post->{username}/entry/$post_id#comment-id-$comment_id";
+};
+
+post '/~:user/entry/:id/leave-comment/?' => require_login sub {
     my $user_id = route_parameters->get('user');
     my $post_id = route_parameters->get('id');
     my $sticker = body_parameters->get('sticker');
@@ -61,21 +69,49 @@ post '/~:user/entry/:id/leave-comment' => require_login sub {
 
     leave_comment($post_id, $sticker, $comment_text);
 
-    redirect "/~$user_id/entry/$post_id";
+    redirect "/~$user_id/entry/$post_id#comments-end";
 };
 
-get '/comment/:id/delete' => require_login sub {
+get '/comment/:id/delete/?' => require_login sub {
+    my $comment_id = route_parameters->get('id');
+
+    my $comment = get_comment($comment_id);
+    my $author = $comment->{author};
+    my $post_id = $comment->{post};
+    my $post = get_link_by_id($post_id);
+
+    # Make sure we are actually, um, trying to delete our own comment lol -
+    # if not just redirect back to page
+    return redirect "/~$post->{username}/entry/$post_id#comment-id-$comment_id" unless $author eq logged_in_user->{id};
+
+    template 'confirm_delete_comment' => {
+        common_template_params({
+            user => $post->{username},
+        }),
+        nav => [
+            { name => "~$post->{username}", link => "/~$post->{username}" },
+            { name => "all", link => "/~$post->{username}/all" },
+            { name => $post->{name}, link => "/~$post->{username}/entry/$post->{id}" },
+            { name => "comment", link => "/~$post->{username}/entry/$post->{id}#comment-id-$comment_id" },
+            { name => "delete", link => undef }
+        ],
+        comment => $comment,
+        title => "Confirm delete comment &mdash; reallycoolwebsite.net",
+        back_url => query_parameters->get('page'),
+    };
+};
+
+post '/comment/:id/delete/?' => require_login sub {
     my $comment_id = route_parameters->get('id');
 
     my $comment = get_comment($comment_id);
     my $post_id = $comment->{post};
     my $author = $comment->{author};
 
-    # Make sure we are actually, um, trying to delete our own comment lol -
-    # if not just redirect back to page
-    redirect "/entry/$post_id" unless $author eq logged_in_user->{id};
+    # Redirect back if we are trying to delete someone else's comment
+    return redirect "/entry/$post_id#comment-id-$comment_id" unless $author eq logged_in_user->{id};
 
-    delete_comment($comment_id);
+    database('link_creator')->quick_delete('linkgarden_comments', { id => $comment_id });
 
-    redirect "/entry/$post_id";
+    redirect "/entry/$post_id#comments";
 };

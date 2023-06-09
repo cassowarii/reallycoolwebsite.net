@@ -1,0 +1,32 @@
+    <div id="comment-box">
+        <% IF comments.size > 0 %>
+            <div class="top-control-bar" style="font-weight: bold">
+                <% IF comments.size == 1 %>
+                    1 comment
+                <% ELSE %>
+                    <% comments.size %> comments
+                <% END %>
+            </div>
+            <% FOREACH comment IN comments %>
+                <% INCLUDE component/comment_capsule.tt %>
+                <hr>
+            <% END %>
+        <% END %>
+        <div id="comments-end"></div>
+
+        <% IF user %>
+            <form action="/~<% profile.name | url %>/entry/<% link.id %>/leave-comment" method="POST" class="major-form">
+                <div class="settings-input">
+                    <label class="block-label" for="comment-input-box">
+                        Leave a comment:
+                    </label>
+                    <textarea name="comment" id="comment-input-box" rows=5></textarea>
+                    <div style="text-align: right; margin-top: 10px">
+                        <input type="submit" value="Post comment" class="cool-button">
+                    </div>
+                </div>
+            </form>
+        <% ELSE %>
+            <a href="/login?return_url=<% request.uri %>">Log in</a> or <a href="/register?return_url=<% request.uri %>">register</a> to leave a comment.
+        <% END %>
+    </div>

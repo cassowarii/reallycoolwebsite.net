@@ -62,6 +62,9 @@
             </div>
             <% FOREACH comment IN comments %>
                 <a href="/~<% comment.username | url %>">~<% comment.username | html_entity %></a>: <% comment.comment %>
+                <% IF comment.author == user.id %>
+                    <span class="extra-text">(<a href="/comment/<% comment.id %>/delete">delete</a>)</span>
+                <% END %>
                 <hr>
             <% END %>
         <% END %>
@@ -79,6 +82,6 @@
                 </div>
             </form>
         <% ELSE %>
-            <a href="/login?return_url=<% request.uri %>">Log in</a> or <a href="/register?return_page=<% request.uri %>">register</a> to leave a comment.
+            <a href="/login?return_url=<% request.uri %>">Log in</a> or <a href="/register?return_url=<% request.uri %>">register</a> to leave a comment.
         <% END %>
     </div>

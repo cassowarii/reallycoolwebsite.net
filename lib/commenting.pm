@@ -64,10 +64,16 @@ post '/~:user/entry/:id/leave-comment' => require_login sub {
     redirect "/~$user_id/entry/$post_id";
 };
 
-post '/comment/:id/delete' => require_login sub {
+get '/comment/:id/delete' => require_login sub {
     my $comment_id = route_parameters->get('id');
 
-    my $post_id = get_comment($comment_id)->{post};
+    my $comment = get_comment($comment_id);
+    my $post_id = $comment->{post};
+    my $author = $comment->{author};
+
+    # Make sure we are actually, um, trying to delete our own comment lol -
+    # if not just redirect back to page
+    redirect "/entry/$post_id" unless $author eq logged_in_user->{id};
 
     delete_comment($comment_id);
 

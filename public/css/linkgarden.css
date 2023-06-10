@@ -210,7 +210,7 @@ img.youtube-thumbnail {
     color: var(--divider-line-color);
 }
 
-.link-added-date {
+.added-date {
     float: right;
     text-align: right;
     font-size: 12px;
@@ -218,13 +218,13 @@ img.youtube-thumbnail {
     font-style: oblique;
 }
 
-.link-added-date a {
+.added-date a {
     text-decoration: none;
     color: #555;
     font-weight: normal;
 }
 
-.link-added-date a:hover {
+.added-date a:hover {
     text-decoration: none;
 }
 

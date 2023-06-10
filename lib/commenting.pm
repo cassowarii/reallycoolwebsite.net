@@ -83,7 +83,7 @@ get '/comment/:id/delete/?' => require_login sub {
     my $post = get_link_by_id($post_id);
 
     # We can delete our own comments, or comments on our own posts.
-    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id};
+    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id});
     return redirect "/comment/$comment_id" unless $can_delete;
 
     template 'confirm_delete_comment' => {
@@ -107,11 +107,12 @@ post '/comment/:id/delete/?' => require_login sub {
     my $comment_id = route_parameters->get('id');
 
     my $comment = get_comment($comment_id);
-    my $post_id = $comment->{post};
     my $author = $comment->{author};
+    my $post_id = $comment->{post};
+    my $post = get_link_by_id($post_id);
 
     # We can delete our own comments, or comments on our own posts.
-    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id};
+    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id});
     return redirect "/comment/$comment_id" unless $can_delete;
 
     my $stmt = database('link_creator')->prepare(

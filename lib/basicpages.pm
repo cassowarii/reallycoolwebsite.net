@@ -382,6 +382,8 @@ get '/~:user/entry/:id/?' => sub {
     my $dbcomments = $stmt->fetchall_arrayref({});
     my $comments = [ map { process_comment_from_db($_) } @$dbcomments ];
 
+    my $edit_comment = query_parameters->get('edit_comment') // 0;
+
     my %ctparams = common_template_params({
         user => $username
     });
@@ -400,6 +402,7 @@ get '/~:user/entry/:id/?' => sub {
         prev_title => $prev_title,
         next_title => $next_title,
         comments => $comments,
+        edit_comment => $edit_comment,
     };
 };
 

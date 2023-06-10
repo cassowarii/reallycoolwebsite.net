@@ -86,8 +86,8 @@
                             <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
                         </div>
                     <% END %>
-                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
-                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
                 <% ELSE %>
                     <!-- If logged in but it's not our post, show heart in control bar instead -->
                     <% IF link.bookmark %>

@@ -22,7 +22,7 @@
                                 <% IF user %>
                                     <% IF comment.author == user.id %>
                                         <!-- Can edit your own comments -->
-                                        <a href="/comment/<% comment.id %>/edit">edit</a>
+                                        <a href="<% request.path %>?edit_comment=<% comment.id %>#comment-id-<% comment.id %>">edit</a>
                                     <% END %>
                                     <% IF comment.author == user.id OR profile.id == user.id %>
                                         <!-- Can delete your own comment, or comments on your post -->

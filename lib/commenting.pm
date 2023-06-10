@@ -128,31 +128,23 @@ post '/comment/:id/delete/?' => require_login sub {
     redirect "/entry/$post_id#comments";
 };
 
-get '/comment/:id/edit/?' => require_login sub {
+post '/comment/:id/edit/?' => require_login sub {
     my $comment_id = route_parameters->get('id');
+
+    my $new_text = body_parameters->get('comment');
 
     my $comment = get_comment($comment_id);
     my $author = $comment->{author};
     my $post_id = $comment->{post};
-    my $post = get_link_by_id($post_id);
 
-    # We can delete our own comments, or comments on our own posts.
-    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id});
-    return redirect "/comment/$comment_id" unless $can_delete;
+    # We can only edit our own comments.
+    my $can_edit = $author == logged_in_user->{id};
+    return redirect "/comment/$comment_id" unless $can_edit;
 
-    template 'edit_comment' => {
-        common_template_params({
-            user => $post->{username},
-        }),
-        nav => [
-            { name => "~$post->{username}", link => "/~$post->{username}" },
-            { name => "all", link => "/~$post->{username}/all" },
-            { name => $post->{name}, link => "/~$post->{username}/entry/$post->{id}" },
-            { name => "comment", link => "/~$post->{username}/entry/$post->{id}#comment-id-$comment_id" },
-            { name => "edit", link => undef }
-        ],
-        comment => $comment,
-        title => "Edit comment &mdash; reallycoolwebsite.net",
-        back_url => query_parameters->get('page'),
-    };
-};
+    my $stmt = database('link_creator')->prepare(
+        "UPDATE linkgarden_comments SET comment = ? WHERE id = ?"
+    );
+    $stmt->execute($new_text, $comment_id);
+
+    redirect "/comment/$comment_id";
+}

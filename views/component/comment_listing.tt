@@ -9,7 +9,11 @@
                 <% END %>
             </div>
             <% FOREACH comment IN comments %>
-                <% INCLUDE component/comment_capsule.tt %>
+                <% IF comment.id == edit_comment %>
+                    <% INCLUDE component/edit_comment.tt %>
+                <% ELSE %>
+                    <% INCLUDE component/comment_capsule.tt %>
+                <% END %>
                 <hr>
             <% END %>
         <% END %>
@@ -17,17 +21,21 @@
 
         <% IF enable_comments %>
             <% IF user %>
-                <form action="/~<% profile.name | url %>/entry/<% link.id %>/leave-comment" method="POST" class="major-form">
-                    <div class="settings-input">
-                        <label class="block-label" for="comment-input-box">
-                            Leave a comment:
-                        </label>
-                        <textarea name="comment" id="comment-input-box" rows=5></textarea>
-                        <div style="text-align: right; margin-top: 10px">
-                            <input type="submit" value="Post comment" class="cool-button">
+                <% IF NOT edit_comment %>
+                    <form action="/~<% profile.name | url %>/entry/<% link.id %>/leave-comment" method="POST" class="major-form">
+                        <div class="settings-input">
+                            <label class="block-label" for="comment-input-box">
+                                Leave a comment:
+                            </label>
+                            <textarea name="comment" id="comment-input-box" rows=5></textarea>
+                            <div style="text-align: right; margin-top: 10px">
+                                <input type="submit" value="Post comment" class="cool-button">
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                <% ELSE %>
+                    <a href="/~<% profile.name | url %>/entry/<% link.id %>#comments-end">Leave a new comment</a>
+                <% END %>
             <% ELSE %>
                 <a href="/login?return_url=<% request.uri %>">Log in</a> or <a href="/register?return_url=<% request.uri %>">register</a> to leave a comment.
             <% END %>

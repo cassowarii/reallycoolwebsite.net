@@ -50,67 +50,66 @@ post '/register/?' => sub {
     my $confirm_password = body_parameters->get('confirm_password');
     my $email = body_parameters->get('email');
 
-    my $err_msg;
+    my @err_msgs = ();
 
     if ($username !~ /^[a-z0-9._-]+$/i) {
-        $err_msg = 'Usernames can only contain letters, numbers, dashes, underscores, or dots.';
+        push @err_msgs, 'Usernames can only contain letters, numbers, dashes, underscores, or dots.';
     }
 
     if ($username !~ /^[a-z]/i) {
-        $err_msg = 'Username must start with a letter.';
+        push @err_msgs, 'Username must start with a letter.';
     }
 
     if ($username !~ /^[a-z0-9]/i) {
-        $err_msg = 'Username must end with a letter or a number.';
+        push @err_msgs, 'Username must end with a letter or a number.';
     }
 
     $username = lc $username;
 
     if (grep { $_ eq $username } @forbidden_usernames) {
-        $err_msg = 'Sorry, that username is forbidden. Please choose a different one.';
+        push @err_msgs, 'Sorry, that username is forbidden. Please choose a different one.';
     }
 
     # Check if username already taken
-    if (!$err_msg) {
-        my $stmt = database('viewer')->prepare(
-            'SELECT * FROM linkgarden_users WHERE name = ?'
-        );
-        $stmt->execute($username);
+    my $stmt = database('viewer')->prepare(
+        'SELECT * FROM linkgarden_users WHERE name = ?'
+    );
+    $stmt->execute($username);
 
-        my $preexisting_user = $stmt->fetchrow_hashref;
+    my $preexisting_user = $stmt->fetchrow_hashref;
 
-        if ($preexisting_user) {
-            $err_msg = 'Requested username is already in use. Please choose a different one.',
-        }
+    if ($preexisting_user) {
+        push @err_msgs, 'Requested username is already in use. Please choose a different one.',
     }
 
     # Check if passwords match
-    if (!$err_msg) {
-        if ($password ne $confirm_password) {
-            $err_msg = 'Sorry, the passwords you entered do not match.',
-        }
+    if ($password ne $confirm_password) {
+        push @err_msgs, 'Sorry, the passwords you entered do not match.',
     }
 
     # Anti-spam
-    if (!$err_msg) {
-        if (!$math) {
-            $err_msg = 'Please provide an answer to the math question!',
-        } else {
-            my $did_math = 0;
+    if (!$math) {
+        push @err_msgs, 'Please provide an answer to the math question!',
+    } else {
+        my $did_math = 0;
 
-            if ($math =~ /^(\d+)\s*earth$/i) {
-                if ($math1 + $math2 == $1) {
-                    $did_math = 1;
-                }
+        if ($math =~ /^(\d+)\s*earth$/i) {
+            if ($math1 + $math2 == $1) {
+                $did_math = 1;
             }
+        }
 
-            if (!$did_math) {
-                $err_msg = 'Your math question answer is incorrect :(',
-            }
+        if (!$did_math) {
+            push @err_msgs, 'Your math question answer is incorrect :(',
         }
     }
 
-    if ($err_msg) {
+    # Check agree to terms
+    if (not defined body_parameters->get('agree_rules')) {
+        push @err_msgs, "You must agree to the site rules in order to register."
+    }
+
+    if (@err_msgs) {
         return template 'register', {
             common_template_params,
             color => 'blank',
@@ -119,13 +118,13 @@ post '/register/?' => sub {
             ],
             hide_login_button => 1,
             flash_icon => 'error',
-            flash_msg => $err_msg,
+            flash_msg => "<ul><li>" . (join "\n</li><li>", @err_msgs) . "\n</li></ul>",
             math => $math,
             math1 => $math1,
             math2 => $math2,
             username => $username,
             email => $email,
-        }
+        };
     }
 
     # Now we can create the user :)

@@ -14,7 +14,7 @@
                         </div>
 
                         <div class="comment-body">
-                            <% comment.comment %>
+                            <% comment.formatted_comment %>
                         </div>
 
                         <div class="comment-footer">

@@ -147,6 +147,8 @@ QUERY
 sub get_link_by_id {
     my ($link_id) = @_;
 
+    return {} if not $link_id;
+
     my $stmt = entry_query("WHERE l.id = ?");
 
     $stmt->execute($link_id);
@@ -221,6 +223,15 @@ sub process_link_from_db {
 
     return \%link;
 };
+
+sub process_comment_from_db {
+    my %comment = %{$_[0]};
+
+    $comment{comment} = Encode::decode('utf8', $comment{comment});
+    $comment{formatted_comment} = format_text($comment{comment}, $comment{username});
+
+    return \%comment;
+}
 
 sub format_text {
     my ($txt, $username) = @_;

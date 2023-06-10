@@ -36,7 +36,12 @@ sub get_comment {
     );
     $stmt->execute($comment_id);
 
-    return $stmt->fetchrow_hashref;
+    my $dbcomment = $stmt->fetchrow_hashref;
+    if ($dbcomment) {
+        return process_comment_from_db($dbcomment);
+    } else {
+        return {};
+    }
 }
 
 sub edit_comment {

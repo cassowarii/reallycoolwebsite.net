@@ -718,8 +718,10 @@ img.icon {
 
 .comment-entry:target {
     background: linear-gradient(to bottom, var(--light-hl-color) 0, transparent 10px calc(100% - 10px), var(--light-hl-color) 100%);
+    border-top: 1px solid var(--divider-line-color);
+    border-bottom: 1px solid var(--divider-line-color);
     padding: 8px 10px;
-    margin: -8px -10px;
+    margin: -9px -10px;
 }
 
 .comment-footer {

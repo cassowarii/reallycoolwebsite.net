@@ -379,7 +379,8 @@ get '/~:user/entry/:id/?' => sub {
             ORDER BY cmt.created ASC'
     );
     $stmt->execute($link_id);
-    my $comments = $stmt->fetchall_arrayref({});
+    my $dbcomments = $stmt->fetchall_arrayref({});
+    my $comments = [ map { process_comment_from_db($_) } @$dbcomments ];
 
     my %ctparams = common_template_params({
         user => $username

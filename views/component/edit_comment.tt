@@ -1,0 +1,16 @@
+    <div id="comment-id-<% comment.id %>" class="comment-entry">
+        <form action="/comment/<% comment.id %>/edit" method="POST" class="major-form edit-comment-form">
+            <div class="settings-input">
+                <label class="block-label" for="comment-input-box">
+                    Edit your comment:
+                </label>
+                <textarea name="comment" id="comment-input-box" rows=5><% comment.comment %></textarea>
+                <div style="margin-top: 10px; line-height: 2.5em">
+                    <div style="float: right; text-align: right;">
+                        <input type="submit" value="Save" class="cool-button">
+                    </div>
+                    <a href="/entry/<% comment.post %>#comment-id-<% comment.id %>">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>

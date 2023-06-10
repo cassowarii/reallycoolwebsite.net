@@ -1,10 +1,10 @@
-    <div id="comment-box">
-        <% IF comments.size > 0 %>
+    <div id="comments">
+        <% IF num_comments > 0 %>
             <div class="top-control-bar" style="font-weight: bold">
-                <% IF comments.size == 1 %>
+                <% IF num_comments == 1 %>
                     1 comment
                 <% ELSE %>
-                    <% comments.size %> comments
+                    <% num_comments %> comments
                 <% END %>
             </div>
             <% FOREACH comment IN comments %>

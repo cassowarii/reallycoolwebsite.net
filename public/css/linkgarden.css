@@ -701,7 +701,7 @@ img.icon {
     top: -50px;
 }
 
-#comment-box {
+#comments {
     margin: 0 auto;
     margin-top: 25px;
     border: 1px solid var(--dark-accent-color);
@@ -710,6 +710,10 @@ img.icon {
     background-color: white;
     padding: 10px;
     overflow: auto;
+}
+
+.comment-header {
+    margin-bottom: 2px;
 }
 
 .comment-entry:target {
@@ -730,6 +734,16 @@ img.icon {
     text-decoration: underline;
     color: var(--divider-line-color);
     margin: 0 5px;
+}
+
+.comment-icon {
+    vertical-align: middle;
+    width: 12px;
+    height: 12px;
+}
+
+.deleted-comment-text {
+    color: #555;
 }
 
 .caution {

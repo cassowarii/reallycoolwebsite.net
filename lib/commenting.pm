@@ -43,6 +43,8 @@ sub edit_comment {
     # TODO
 }
 
+# Short URL for a particular comment. Redirects to the post the comment is on
+# and goes to the appropriate comment anchor
 get '/comment/:id/?' => sub {
     my $comment_id = route_parameters->get('id');
     my $comment = get_comment($comment_id);
@@ -80,9 +82,9 @@ get '/comment/:id/delete/?' => require_login sub {
     my $post_id = $comment->{post};
     my $post = get_link_by_id($post_id);
 
-    # Make sure we are actually, um, trying to delete our own comment lol -
-    # if not just redirect back to page
-    return redirect "/~$post->{username}/entry/$post_id#comment-id-$comment_id" unless $author eq logged_in_user->{id};
+    # We can delete our own comments, or comments on our own posts.
+    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id};
+    return redirect "/comment/$comment_id" unless $can_delete;
 
     template 'confirm_delete_comment' => {
         common_template_params({
@@ -108,10 +110,14 @@ post '/comment/:id/delete/?' => require_login sub {
     my $post_id = $comment->{post};
     my $author = $comment->{author};
 
-    # Redirect back if we are trying to delete someone else's comment
-    return redirect "/entry/$post_id#comment-id-$comment_id" unless $author eq logged_in_user->{id};
+    # We can delete our own comments, or comments on our own posts.
+    my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id};
+    return redirect "/comment/$comment_id" unless $can_delete;
 
-    database('link_creator')->quick_delete('linkgarden_comments', { id => $comment_id });
+    my $stmt = database('link_creator')->prepare(
+        "UPDATE linkgarden_comments SET author = 0, comment = '', is_deleted = 1 WHERE id = ?"
+    );
+    $stmt->execute($comment_id);
 
     redirect "/entry/$post_id#comments";
 };

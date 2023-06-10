@@ -42,6 +42,8 @@ get '/new-entry/?' => require_login sub {
         ],
         link => {
             icon => 'flower',
+            # TODO: add usersettings ability to change whether comments are enabled by default
+            enable_comments => 1,
         },
         title => "New entry &mdash; reallycoolwebsite.net",
         icons => [ @iconlist ],
@@ -95,6 +97,7 @@ sub preview {
             description => $params->get('description'),
             tags => $params->get('tags'),
             icon => $params->get('icon'),
+            enable_comments => $params->get('enable_comments'),
         },
         back_page => body_parameters->get('back_page'),
         post_type => $params->get('post_type'),
@@ -134,6 +137,7 @@ post '/new-entry/?' => require_login sub {
     my $name = body_parameters->get('name');
     my $icon = body_parameters->get('icon');
     my $description = body_parameters->get('description');
+    my $enable_comments = defined body_parameters->get('enable_comments') || 0;
 
     my @tags = fix_tags Encode::encode('utf8', body_parameters->get('tags'));
 
@@ -165,9 +169,9 @@ post '/new-entry/?' => require_login sub {
 
     # Insert the actual post into the DB and get its ID
     $stmt = database('link_creator')->prepare(
-        'INSERT INTO linkgarden (owner, name, url, description, icon) VALUES (?, ?, ?, ?, ?)'
+        'INSERT INTO linkgarden (owner, name, url, description, icon, enable_comments) VALUES (?, ?, ?, ?, ?, ?)'
     );
-    $stmt->execute($user->{id}, $name, $url, $description, $icon);
+    $stmt->execute($user->{id}, $name, $url, $description, $icon, $enable_comments);
 
     $stmt = database('link_creator')->prepare(
         'SELECT MAX(id) last_id FROM linkgarden'
@@ -294,6 +298,8 @@ post '/~:user/entry/:id/edit/?' => require_login sub {
     my @tags = split / /, body_parameters->get('tags');
     my $icon = body_parameters->get('icon');
     my $description = body_parameters->get('description');
+    my $enable_comments = defined body_parameters->get('enable_comments') || 0;
+    say "Comments enabled: $enable_comments";
 
     my $url;
     if (body_parameters->get('post_type') eq 'link') {
@@ -332,9 +338,9 @@ post '/~:user/entry/:id/edit/?' => require_login sub {
 
     # Save edits
     $stmt = database('link_creator')->prepare(
-        'UPDATE linkgarden SET name = ?, url = ?, description = ?, icon = ? WHERE id = ?'
+        'UPDATE linkgarden SET name = ?, url = ?, description = ?, icon = ?, enable_comments = ? WHERE id = ?'
     );
-    $stmt->execute($name, $url, $description, $icon, $link_id);
+    $stmt->execute($name, $url, $description, $icon, $enable_comments, $link_id);
 
     # Check if an image was attached
     if ($img_url ne $old_link->{image_url}) {

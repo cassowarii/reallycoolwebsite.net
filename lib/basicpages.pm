@@ -374,7 +374,7 @@ get '/~:user/entry/:id/?' => sub {
     # Retrieve comments
     $stmt = database('viewer')->prepare(
         'SELECT cmt.*, u.name username FROM linkgarden_comments cmt
-            INNER JOIN linkgarden_users u ON cmt.author = u.id
+            LEFT  JOIN linkgarden_users u ON cmt.author = u.id
             WHERE cmt.post = ?
             ORDER BY cmt.created ASC'
     );

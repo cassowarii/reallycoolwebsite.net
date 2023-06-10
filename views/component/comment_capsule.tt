@@ -1,34 +1,34 @@
                 <div id="comment-id-<% comment.id %>" class="comment-entry">
-                    <div class="comment-header">
-                        <a href="/~<% comment.username | url %>">~<% comment.username | html_entity %></a>:
-                        <div class="added-date">
-                            <a href="#comment-id-<% comment.id %>">
-                                <% IF comment.created == comment.updated %>
-                                    <% comment.created %>
-                                <% ELSE %>
-                                    <span title="Edited <% comment.updated %>"><% comment.created %> (E)</span>
-                                <% END %>
-                            </a>
+                    <% IF not comment.is_deleted %>
+                        <div class="comment-header">
+                            <a href="/~<% comment.username | url %>">~<% comment.username | html_entity %></a>:
+                            <div class="added-date">
+                                <a href="#comment-id-<% comment.id %>">
+                                    <% IF comment.created == comment.updated %>
+                                        <% comment.created %>
+                                    <% ELSE %>
+                                        <span title="Edited <% comment.updated %>"><% comment.created %> (E)</span>
+                                    <% END %>
+                                </a>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="comment-body">
-                        <% comment.comment %>
-                    </div>
+                        <div class="comment-body">
+                            <% comment.comment %>
+                        </div>
 
-                    <div class="comment-footer">
-                        <% UNLESS nofooter %>
-                            <% IF user %>
-                                <% IF comment.author == user.id %>
-                                    <!-- Your own comment -->
-                                    <a href="/comment/<% comment.id %>/delete">delete</a>
-                                <% ELSE %>
-                                    <!-- Someone else's comment (when logged in) -->
-                                    <!-- (coming at some point!) -->
-                                    <!--a href="/comment/<% comment.id %>/report">report</a-->
+                        <div class="comment-footer">
+                            <% UNLESS nofooter %>
+                                <% IF user %>
+                                    <% IF comment.author == user.id OR profile.id == user.id %>
+                                        <!-- Can delete your own comment, or comments on your post -->
+                                        <a href="/comment/<% comment.id %>/delete">delete</a>
+                                    <% END %>
                                 <% END %>
+                                <a href="#comment-id-<% comment.id %>">permalink</a>
                             <% END %>
-                            <a href="#comment-id-<% comment.id %>">permalink</a>
-                        <% END %>
-                    </div>
+                        </div>
+                    <% ELSE %>
+                        <div class="deleted-comment-text">- Comment deleted -</div>
+                    <% END %>
                 </div>

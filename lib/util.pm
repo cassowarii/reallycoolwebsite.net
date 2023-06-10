@@ -115,12 +115,14 @@ sub entry_query {
         $bkquery2 = "LEFT  JOIN linkgarden_bookmarks AS bk ON (bk.post_id = l.id AND bk.liker = $user_id)";
     }
 
+    # TODO: need to figure out how to make this query not terrible
     my $query = <<QUERY
 
         SELECT l.*,
                 GROUP_CONCAT(DISTINCT t.name SEPARATOR ' ') tags,
                 u.name username,
-                GROUP_CONCAT(DISTINCT lku.name SEPARATOR ' ') likers
+                GROUP_CONCAT(DISTINCT lku.name SEPARATOR ' ') likers,
+                (SELECT COUNT(*) FROM linkgarden_comments cmt WHERE l.id = cmt.post AND cmt.is_deleted = 0) num_comments
                 $bkquery1
             FROM linkgarden as l
             LEFT  JOIN linkgarden_likes AS lk ON lk.post_id = l.id
@@ -137,7 +139,7 @@ QUERY
 
     $query .= $extra if $extra;
 
-    say {\*STDERR} "Constructed query: $query";
+    print "Constructed query: $query";
 
     return database('viewer')->prepare($query);
 }

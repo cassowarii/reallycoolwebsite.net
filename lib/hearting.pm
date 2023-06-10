@@ -56,18 +56,32 @@ get '/~:user/entry/:id/heart' => require_login sub {
     my $profile_name = route_parameters->get('user');
     my $link_id = route_parameters->get('id');
 
-    associate_user_with_post('linkgarden_likes', $link_id);
-
-    return redirect_to_prev_view($link_id, query_parameters->get('page'));
+    eval {
+        associate_user_with_post('linkgarden_likes', $link_id);
+    }; if (my $error = $@) {
+        status 'bad_request';
+        return template 'err', {
+            error => $error,
+        };
+    } else {
+        return redirect_to_prev_view($link_id, query_parameters->get('page'));
+    }
 };
 
 get '/~:user/entry/:id/bookmark' => require_login sub {
     my $profile_name = route_parameters->get('user');
     my $link_id = route_parameters->get('id');
 
-    associate_user_with_post('linkgarden_bookmarks', $link_id);
-
-    return redirect_to_prev_view($link_id, query_parameters->get('page'));
+    eval {
+        associate_user_with_post('linkgarden_bookmarks', $link_id);
+    }; if (my $error = $@) {
+        status 'bad_request';
+        return template 'err', {
+            error => $error,
+        };
+    } else {
+        return redirect_to_prev_view($link_id, query_parameters->get('page'));
+    }
 };
 
 get '/~:user/entry/:id/unheart' => require_login sub {
@@ -91,8 +105,16 @@ get '/~:user/entry/:id/unbookmark' => require_login sub {
 sub associate_user_with_post {
     my ($table, $link_id) = @_;
 
+    # Check that we aren't liking our own post
+    my $stmt = database('viewer')->prepare(
+        'SELECT * FROM linkgarden WHERE id = ?'
+    );
+    $stmt->execute($link_id);
+    my $result = $stmt->fetchrow_hashref;
+    die "You cannot heart or bookmark your own post!\n" if $result->{owner} == logged_in_user->{id};
+
     # INSERT IGNORE so that double-likes don't cause errors
-    my $stmt = database('link_creator')->prepare(
+    $stmt = database('link_creator')->prepare(
         "INSERT IGNORE INTO $table (liker, post_id) VALUES (?, ?)"
     );
     $stmt->execute(logged_in_user->{id}, $link_id);

@@ -17,7 +17,7 @@
         <hr>
         <div class="settings-input">
             <label for="email-box" class="block-label">Email address:</label>
-            <div class="extra-text">We will never email you unless you request it</div>
+            <div class="extra-text">Optional. We will never email you unless you request it.</div>
             <input type="text" name="email" id="email-box" value="<% email %>">
         </div>
         <hr>
@@ -25,6 +25,12 @@
             <label for="math-box" class="block-label required">What is <% math1 %> plus <% math2 %>, and which planet do you live on?</label>
             <div class="extra-text">Enter both answers with a space in between.</div>
             <input type="text" name="math" id="math-box" required value="<% math %>">
+        </div>
+        <hr>
+        <div class="settings-input">
+            <input type="checkbox" name="agree_rules" id="rules-agree-box">
+            <label for="rules-agree-box">I have read and agree to the <a href="/help/rules.html" target="_blank">site rules</a>.</label>
+            <div class="extra-text">They are very short and simple, so please do actually read them.</div>
         </div>
         <hr>
         <div class="settings-input" style="text-align: center">

@@ -7,8 +7,7 @@
             <% IF link.username == user.name %>
                 <!-- Only show hearts for our own entries -->
                 <% IF link.nhearts > 0 %>
-                    <a id="hearts"></a>
-                    <div class="link">
+                    <div class="link" id="hearts">
                         &#9829;
                         <% FOREACH liker IN link.likers %>
                             <a href="/~<% liker | url %>">~<% liker | html_entity %></a>
@@ -51,6 +50,4 @@
         </div>
     </div>
 
-    <% IF link.enable_comments %>
-        <% INCLUDE component/comment_listing.tt num_comments=link.num_comments %>
-    <% END %>
+    <% INCLUDE component/comment_listing.tt num_comments=link.num_comments enable_comments=link.enable_comments %>

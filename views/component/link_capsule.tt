@@ -10,7 +10,7 @@
             <% link.created_day %>
         </a>
         <br>
-        <% IF link.enable_comments %>
+        <% IF link.enable_comments or link.num_comments > 0 %>
             <% IF link.num_comments == 1 %>
                 <a href="/~<% link.username %>/entry/<% link.id %>#comments">
                     <img src="/icons/comment.png" alt="Comments:" class="comment-icon" title="<% link.num_comments %> comment"> <% link.num_comments %>

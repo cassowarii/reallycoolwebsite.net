@@ -47,7 +47,7 @@ h1 {
     overflow: auto;
 }
 
-.link {
+.link, #comments {
     margin: 0 auto;
     margin-top: 25px;
     border: 1px solid var(--dark-accent-color);
@@ -71,13 +71,13 @@ h1 {
 }
 
 @media (min-width: 600px) {
-    #container, .link, #list-footer {
+    #container, .link, #list-footer, #comments {
         box-shadow: 5px 5px 0 var(--dark-accent-color);
     }
 }
 
 @media (max-width: 599px) {
-    #container, .link, #list-footer {
+    #container, .link, #list-footer, #comments {
         box-shadow: 0 5px 0 var(--dark-accent-color);
         border-left: none;
         border-right: none;
@@ -701,17 +701,6 @@ img.icon {
     top: -50px;
 }
 
-#comments {
-    margin: 0 auto;
-    margin-top: 25px;
-    border: 1px solid var(--dark-accent-color);
-    box-shadow: 5px 5px 0 var(--dark-accent-color);
-    max-width: 600px;
-    background-color: white;
-    padding: 10px;
-    overflow: auto;
-}
-
 .comment-header {
     margin-bottom: 2px;
 }
@@ -722,6 +711,10 @@ img.icon {
     border-bottom: 1px solid var(--divider-line-color);
     padding: 8px 10px;
     margin: -9px -10px;
+}
+
+.comment-entry:target + hr {
+    border-top: 1px solid transparent;
 }
 
 .comment-footer {
@@ -741,7 +734,7 @@ img.icon {
 .comment-icon {
     vertical-align: middle;
     width: 12px;
-    height: 12px;
+    height: 15px;
 }
 
 .deleted-comment-text {

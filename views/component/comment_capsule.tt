@@ -20,6 +20,10 @@
                         <div class="comment-footer">
                             <% UNLESS nofooter %>
                                 <% IF user %>
+                                    <% IF comment.author == user.id %>
+                                        <!-- Can edit your own comments -->
+                                        <a href="/comment/<% comment.id %>/edit">edit</a>
+                                    <% END %>
                                     <% IF comment.author == user.id OR profile.id == user.id %>
                                         <!-- Can delete your own comment, or comments on your post -->
                                         <a href="/comment/<% comment.id %>/delete">delete</a>

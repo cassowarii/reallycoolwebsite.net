@@ -1,0 +1,18 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <div style="margin: 30px; margin-top: 40px">
+        <form action="/~<% profile.name | url %>/entry/<% link.id %>/leave-comment" method="POST" class="major-form">
+            <div class="settings-input">
+                <label class="block-label" for="comment-input-box">
+                    Edit your comment:
+                </label>
+                <textarea name="comment" id="comment-input-box" rows=5></textarea>
+                <div style="text-align: right; margin-top: 10px">
+                    <input type="submit" value="Post comment" class="cool-button">
+                </div>
+                <a href="/entry/<% comment.post %>#comment-id-<% comment.id %>">Cancel edit</a>
+            </div>
+        </form>
+    </div>
+</div>

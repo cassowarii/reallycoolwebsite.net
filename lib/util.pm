@@ -115,12 +115,14 @@ sub entry_query {
         $bkquery2 = "LEFT  JOIN linkgarden_bookmarks AS bk ON (bk.post_id = l.id AND bk.liker = $user_id)";
     }
 
+    # TODO: need to figure out how to make this query not terrible
     my $query = <<QUERY
 
         SELECT l.*,
                 GROUP_CONCAT(DISTINCT t.name SEPARATOR ' ') tags,
                 u.name username,
-                GROUP_CONCAT(DISTINCT lku.name SEPARATOR ' ') likers
+                GROUP_CONCAT(DISTINCT lku.name SEPARATOR ' ') likers,
+                (SELECT COUNT(*) FROM linkgarden_comments cmt WHERE l.id = cmt.post AND cmt.is_deleted = 0) num_comments
                 $bkquery1
             FROM linkgarden as l
             LEFT  JOIN linkgarden_likes AS lk ON lk.post_id = l.id
@@ -137,13 +139,15 @@ QUERY
 
     $query .= $extra if $extra;
 
-    say {\*STDERR} "Constructed query: $query";
+    print "Constructed query: $query";
 
     return database('viewer')->prepare($query);
 }
 
 sub get_link_by_id {
     my ($link_id) = @_;
+
+    return {} if not $link_id;
 
     my $stmt = entry_query("WHERE l.id = ?");
 
@@ -219,6 +223,15 @@ sub process_link_from_db {
 
     return \%link;
 };
+
+sub process_comment_from_db {
+    my %comment = %{$_[0]};
+
+    $comment{comment} = Encode::decode('utf8', $comment{comment});
+    $comment{formatted_comment} = format_text($comment{comment}, $comment{username});
+
+    return \%comment;
+}
 
 sub format_text {
     my ($txt, $username) = @_;

@@ -5,10 +5,26 @@
             <a href="/~<% link.username | url %>" style="margin-left:0">~<% link.username | html_entity %></a>
         </div>
     <% END %>
-    <div class="link-added-date">
+    <div class="added-date">
         <a href="/~<% link.username %>/entry/<% link.id %>" title="added <% link.created %><% IF link.created != link.updated %>, updated <%link.updated %><% END %>">
             <% link.created_day %>
         </a>
+        <br>
+        <% IF link.enable_comments or link.num_comments > 0 %>
+            <% IF link.num_comments == 1 %>
+                <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                    <img src="/icons/comment.png" alt="Comments:" class="comment-icon" title="<% link.num_comments %> comment"> <% link.num_comments %>
+                </a>
+            <% ELSIF link.num_comments > 0 %>
+                <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                    <img src="/icons/comment.png" alt="Comments:" class="comment-icon" title="<% link.num_comments %> comments"> <% link.num_comments %>
+                </a>
+            <% ELSE %>
+                <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                    <img src="/icons/comment.png" alt="Comments:" class="comment-icon" title="Leave a comment">
+                </a>
+            <% END %>
+        <% END %>
     </div>
     <% IF link.url == "self" %>
         <h2><a href="/~<% link.username %>/entry/<% link.id %>" target="_blank"><% link.name | html_entity %></h2>
@@ -70,8 +86,8 @@
                             <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
                         </div>
                     <% END %>
-                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
-                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
                 <% ELSE %>
                     <!-- If logged in but it's not our post, show heart in control bar instead -->
                     <% IF link.bookmark %>

@@ -18,6 +18,7 @@ use userpages;
 use posting;
 use tagging;
 use hearting;
+use commenting;
 use usersettings;
 use registration;
 use rss;

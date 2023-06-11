@@ -19,7 +19,7 @@
                                 &gt;
                             </div>
                             <div class="nav-path-component">
-                                <a href="<% component.link | url %>"><% component.name | html_entity %></a>
+                                <a href="<% component.link %>"><% component.name | html_entity %></a>
                             </div>
                         <% ELSE %>
                             <div class="nav-arrow-container">

@@ -1,0 +1,38 @@
+                <div id="comment-id-<% comment.id %>" class="comment-entry">
+                    <% IF not comment.is_deleted %>
+                        <div class="comment-header">
+                            <a href="/~<% comment.username | url %>">~<% comment.username | html_entity %></a>:
+                            <div class="added-date">
+                                <a href="#comment-id-<% comment.id %>">
+                                    <% IF comment.created == comment.updated %>
+                                        <% comment.created %>
+                                    <% ELSE %>
+                                        <span title="Edited <% comment.updated %>"><% comment.created %> (E)</span>
+                                    <% END %>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="comment-body">
+                            <% comment.formatted_comment %>
+                        </div>
+
+                        <div class="comment-footer">
+                            <% UNLESS nofooter %>
+                                <% IF user %>
+                                    <% IF comment.author == user.id %>
+                                        <!-- Can edit your own comments -->
+                                        <a href="<% request.path %>?edit_comment=<% comment.id %>#comment-id-<% comment.id %>">edit</a>
+                                    <% END %>
+                                    <% IF comment.author == user.id OR profile.id == user.id %>
+                                        <!-- Can delete your own comment, or comments on your post -->
+                                        <a href="/comment/<% comment.id %>/delete">delete</a>
+                                    <% END %>
+                                <% END %>
+                                <a href="#comment-id-<% comment.id %>">permalink</a>
+                            <% END %>
+                        </div>
+                    <% ELSE %>
+                        <div class="deleted-comment-text">- Comment deleted -</div>
+                    <% END %>
+                </div>

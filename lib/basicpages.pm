@@ -336,6 +336,11 @@ get '/~:user/entry/:id/?' => sub {
         };
     }
 
+    # If username in URL wrong, redirect to correct author
+    if ($link->{username} ne $username) {
+        return redirect "/~$link->{username}/entry/$link_id";
+    }
+
     # Get previous and next posts
     my ($prev_id, $next_id, $prev_title, $next_title);
 
@@ -366,28 +371,39 @@ get '/~:user/entry/:id/?' => sub {
         $next_title = Encode::decode('utf8', $result->{name});
     }
 
-    if ($link->{username} ne $username) {
-        redirect "/~$link->{username}/entry/$link_id";
-    } else {
-        my %ctparams = common_template_params({
-            user => $username
-        });
+    # Retrieve comments
+    $stmt = database('viewer')->prepare(
+        'SELECT cmt.*, u.name username FROM linkgarden_comments cmt
+            LEFT  JOIN linkgarden_users u ON cmt.author = u.id
+            WHERE cmt.post = ?
+            ORDER BY cmt.created ASC'
+    );
+    $stmt->execute($link_id);
+    my $dbcomments = $stmt->fetchall_arrayref({});
+    my $comments = [ map { process_comment_from_db($_) } @$dbcomments ];
 
-        template 'single_post' => {
-            %ctparams,
-            nav => [
-                { name => "~$username", link => "/~$username" },
-                { name => "all", link => "/~$username/all" },
-                { name => $link->{name}, link => undef },
-            ],
-            title => "$link->{name} &mdash; $username\'s $ctparams{profile}{page_name}",
-            link  => $link,
-            prev_id => $prev_id,
-            next_id => $next_id,
-            prev_title => $prev_title,
-            next_title => $next_title,
-        };
-    }
+    my $edit_comment = query_parameters->get('edit_comment') // 0;
+
+    my %ctparams = common_template_params({
+        user => $username
+    });
+
+    template 'single_post' => {
+        %ctparams,
+        nav => [
+            { name => "~$username", link => "/~$username" },
+            { name => "all", link => "/~$username/all" },
+            { name => $link->{name}, link => undef },
+        ],
+        title => "$link->{name} &mdash; $username\'s $ctparams{profile}{page_name}",
+        link  => $link,
+        prev_id => $prev_id,
+        next_id => $next_id,
+        prev_title => $prev_title,
+        next_title => $next_title,
+        comments => $comments,
+        edit_comment => $edit_comment,
+    };
 };
 
 get '/~:user/search/?' => sub {

@@ -7,8 +7,7 @@
             <% IF link.username == user.name %>
                 <!-- Only show hearts for our own entries -->
                 <% IF link.nhearts > 0 %>
-                    <a id="hearts"></a>
-                    <div class="link">
+                    <div class="link" id="hearts">
                         &#9829;
                         <% FOREACH liker IN link.likers %>
                             <a href="/~<% liker | url %>">~<% liker | html_entity %></a>
@@ -45,7 +44,10 @@
                 <div style="clear: both"></div>
                 <hr>
             <% END %>
-            <div style="text-align: center"><a href="/~<% profile.name %>/random">Random entry</a></div>
+            <div style="text-align: center"><a href="/~<% profile.name %>/random">Random entry from ~<% profile.name %></a></div>
             <hr>
             <div style="text-align: center"><a href="/~<% profile.name %>"><% profile.name %>'s <% profile.page_name %></a></div>
         </div>
+    </div>
+
+    <% INCLUDE component/comment_listing.tt num_comments=link.num_comments enable_comments=link.enable_comments %>

@@ -39,4 +39,8 @@
             <input type="submit" value="Register" class="cool-button">
         </div>
     </form>
+    <div style="margin-top: 20px"></div>
+    <div style="text-align: center">
+        <a href="/help/rules.html" target="_blank">privacy policy</a>
+    </div>
 </div>

@@ -24,6 +24,10 @@ sub common_settings_params() {
         $optional{disable_youtube} = 1;
     }
 
+    if (logged_in_user->{enable_default_comments}) {
+        $optional{enable_default_comments} = 1;
+    }
+
     return (
         common_template_params(),
         nav => USERSETTINGS_NAV,
@@ -48,6 +52,7 @@ post '/user-settings/?' => require_login sub {
     my $new_password = body_parameters->get('password');
     my $confirm_password = body_parameters->get('confirm_password');
     my $email = body_parameters->get('email');
+    my $enable_default_comments = defined body_parameters->get('enable_default_comments') || 0;
     my $disable_youtube = 1;
     if (defined body_parameters->get('inline_youtube')) {
         $disable_youtube = 0;
@@ -143,6 +148,16 @@ post '/user-settings/?' => require_login sub {
         update_current_user disable_youtube_embeds => $disable_youtube;
 
         push @messages, 'YouTube embed settings updated';
+    }
+
+    if (logged_in_user->{enable_default_comments} != $enable_default_comments) {
+        my $stmt = database('link_creator')->prepare(
+            'UPDATE linkgarden_users SET enable_default_comments = ? WHERE id = ?'
+        );
+        $stmt->execute($enable_default_comments, logged_in_user->{id});
+        update_current_user enable_default_comments => $enable_default_comments;
+
+        push @messages, 'Default comment settings updated.';
     }
 
     if (!@messages) {

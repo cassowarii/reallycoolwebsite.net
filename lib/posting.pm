@@ -42,8 +42,7 @@ get '/new-entry/?' => require_login sub {
         ],
         link => {
             icon => 'flower',
-            # TODO: add usersettings ability to change whether comments are enabled by default
-            enable_comments => 1,
+            enable_comments => logged_in_user->{enable_default_comments},
         },
         title => "New entry &mdash; reallycoolwebsite.net",
         icons => [ @iconlist ],

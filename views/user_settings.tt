@@ -29,7 +29,16 @@
                 <input type="checkbox" name="inline_youtube" id="inline-youtube-box" checked>
             <% END %>
             <label for="inline-youtube-box">Load YouTube embeds inline</label>
-            <div class="extra-text">YouTube videos play embedded in page, but page loads slower and Google might track you</div>
+            <div class="extra-text">YouTube videos play embedded in page, but page loads slower and Google might track you more</div>
+        </div>
+        <hr>
+        <div class="settings-input">
+            <% IF enable_default_comments == 1 %>
+                <input type="checkbox" name="enable_default_comments" id="default-comments-box" value=1 checked>
+            <% ELSE %>
+                <input type="checkbox" name="enable_default_comments" id="default-comments-box" value=1>
+            <% END %>
+            <label for="default-comments-box">Enable comments by default on new posts</label>
         </div>
         <hr>
         <div class="settings-input" style="text-align: center">

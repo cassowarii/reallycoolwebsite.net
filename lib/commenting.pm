@@ -69,8 +69,14 @@ post '/~:user/entry/:id/leave-comment/?' => require_login sub {
     my $post_id = route_parameters->get('id');
     my $sticker = body_parameters->get('sticker');
     my $comment_text = body_parameters->get('comment');
+    my $post = get_link_by_id($post_id);
 
     leave_comment($post_id, $sticker, $comment_text);
+
+    # Notify about the comment unless we're commenting on our own post
+    notify_user(logged_in_user->{id}, $post->{owner}, 'comment',
+                "commented on '$post->{name}'", "/entry/$post->{id}")
+                    unless $post->{owner} == logged_in_user->{id};
 
     redirect "/~$user_id/entry/$post_id#comments-end";
 };

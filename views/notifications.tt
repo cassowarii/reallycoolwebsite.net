@@ -1,13 +1,25 @@
 <div id="container">
     <% INCLUDE component/nav.tt %>
 
-    <ul class="notification-list">
-        <% FOREACH notification IN notifications %>
-            <li <% IF notification.unread %>class="unread-notification"<% END %>>
-                <a href="/notifications/<% notification.id %>">
-                    <b><% notification.from_username %></b> <% notification.msg %>
-                </a>
-            </li>
-        <% END %>
-    </ul>
+    <!-- TODO -->
+    <div style="text-align: center; padding: 20px;"><a href="#">Mark all as read</a></div>
+
+    <% IF notifications.size > 0 %>
+        <ul class="notification-list">
+            <% FOREACH notification IN notifications %>
+                <li <% IF notification.unread %>class="unread-notification"<% END %>>
+                    <a href="/notifications/<% notification.id %>">
+                        <div class="added-date"><% notification.created %></div>
+                        <div style="display: inline-block">
+                            <b><% notification.from_username %></b> <% notification.msg %>
+                        </div>
+                    </a>
+                </li>
+            <% END %>
+        </ul>
+    <% ELSE %>
+        <div style="padding: 20px">
+            You'll get notified here if someone comments on your one of your entries.
+        </div>
+    <% END %>
 </div>

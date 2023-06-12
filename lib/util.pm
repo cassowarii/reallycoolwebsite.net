@@ -34,13 +34,14 @@ sub random_color() {
 sub notify_user {
     my ($from_user, $to_user, $type, $msg, $link) = @_;
 
-    database('link_creator')->quick_insert({
-        from_user => $from_user,
-        to_user => $to_user,
-        type => $type,
-        msg => $msg,
-        link => $link,
-    });
+    database('link_creator')->quick_insert('linkgarden_notifications',
+        {
+            from_user => $from_user,
+            to_user => $to_user,
+            type => $type,
+            msg => $msg,
+            link => $link,
+        });
 }
 
 sub has_unread_notifications {
@@ -85,11 +86,16 @@ sub common_template_params {
         $user = process_user_from_db(logged_in_user);
     }
 
+    my $notification = undef;
+    if (logged_in_user) {
+        $notification = has_unread_notifications(logged_in_user->{id}),
+    }
+
     return (
         user => $user,
         profile => $profile,
         color => $params->{color} // random_color,
-        unread_notifications => has_unread_notifications(logged_in_user->{id}),
+        unread_notifications => $notification,
     );
 }
 

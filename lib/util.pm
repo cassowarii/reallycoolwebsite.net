@@ -31,6 +31,30 @@ sub random_color() {
     return $colors[rand @colors];
 }
 
+sub notify_user {
+    my ($from_user, $to_user, $type, $msg, $link) = @_;
+
+    database('link_creator')->quick_insert({
+        from_user => $from_user,
+        to_user => $to_user,
+        type => $type,
+        msg => $msg,
+        link => $link,
+    });
+}
+
+sub has_unread_notifications {
+    my ($user_id) = @_;
+
+    my $stmt = database('viewer')->prepare(
+        "SELECT COUNT(*) total FROM linkgarden_notifications WHERE to_user = ? AND unread = 1"
+    );
+    $stmt->execute($user_id);
+    my $result = $stmt->fetchrow_hashref;
+
+    return ($result->{total} > 0);
+}
+
 sub common_template_params {
     my ($params) = @_;
 
@@ -65,6 +89,7 @@ sub common_template_params {
         user => $user,
         profile => $profile,
         color => $params->{color} // random_color,
+        unread_notifications => has_unread_notifications(logged_in_user->{id}),
     );
 }
 

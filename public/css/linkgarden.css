@@ -750,3 +750,36 @@ img.icon {
 .caution {
     background: repeating-linear-gradient(45deg, #fff9e3 0 20px, #ebebeb 20px 40px);
 }
+
+.notification-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.notification-list a {
+    color: black;
+    font-weight: normal;
+}
+
+.notification-list li a {
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid var(--divider-line-color);
+}
+
+.notification-list li a:hover {
+    background: var(--light-hl-color);
+}
+
+.notification-list li:last-child a {
+    border-bottom: none;
+}
+
+.notification-list li.unread-notification a {
+    background: linear-gradient(to right, var(--light-hl-color) 0, transparent 50px calc(100% - 50px), var(--light-hl-color) 100%);
+}
+
+.notification-list li.unread-notification a:hover {
+    background: linear-gradient(to right, var(--dark-hl-color) 0, var(--light-hl-color) 50px calc(100% - 50px), var(--dark-hl-color) 100%);
+}

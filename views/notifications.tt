@@ -1,0 +1,13 @@
+<div id="container">
+    <% INCLUDE component/nav.tt %>
+
+    <ul class="notification-list">
+        <% FOREACH notification IN notifications %>
+            <li <% IF notification.unread %>class="unread-notification"<% END %>>
+                <a href="/notifications/<% notification.id %>">
+                    <b><% notification.from_username %></b> <% notification.msg %>
+                </a>
+            </li>
+        <% END %>
+    </ul>
+</div>

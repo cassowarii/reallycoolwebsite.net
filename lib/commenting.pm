@@ -44,10 +44,6 @@ sub get_comment {
     }
 }
 
-sub edit_comment {
-    # TODO
-}
-
 # Short URL for a particular comment. Redirects to the post the comment is on
 # and goes to the appropriate comment anchor
 get '/comment/:id/?' => sub {

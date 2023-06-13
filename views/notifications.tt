@@ -2,7 +2,10 @@
     <% INCLUDE component/nav.tt %>
 
     <!-- TODO -->
-    <div style="text-align: center; padding: 20px;"><a href="#">Mark all as read</a></div>
+    <% IF unread_notifications %>
+        <div style="text-align: center; padding: 20px;"><a href="/notifications/mark-all-read">Mark all as read</a></div>
+        <hr style="margin-bottom: 0">
+    <% END %>
 
     <% IF notifications.size > 0 %>
         <ul class="notification-list">
@@ -10,7 +13,7 @@
                 <li <% IF notification.unread %>class="unread-notification"<% END %>>
                     <a href="/notifications/<% notification.id %>">
                         <div class="added-date"><% notification.created %></div>
-                        <div style="display: inline-block">
+                        <div class="notification-text">
                             <b><% notification.from_username %></b> <% notification.msg %>
                         </div>
                     </a>
@@ -21,5 +24,19 @@
         <div style="padding: 20px">
             You'll get notified here if someone comments on your one of your entries.
         </div>
+    <% END %>
+
+    <% IF (NOT first_page) OR (NOT last_page) %>
+        <hr style="margin-top: 0">
+    <% END %>
+    <% IF NOT first_page %>
+        <p style="float: left; margin: 0">
+            <a href="<% base_list_url %>/page/<% pagenum - 1 %>">Newer</a>
+        </p>
+    <% END %>
+    <% IF NOT last_page %>
+        <p style="float: left; margin: 0">
+            <a href="/notifications/page/<% page_num + 1 %>">Older</a>
+        </p>
     <% END %>
 </div>

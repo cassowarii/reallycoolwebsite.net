@@ -74,9 +74,9 @@ post '/~:user/entry/:id/leave-comment/?' => require_login sub {
     leave_comment($post_id, $sticker, $comment_text);
 
     # Notify about the comment unless we're commenting on our own post
-    notify_user(logged_in_user->{id}, $post->{owner}, 'comment',
-                "commented on '$post->{name}'", "/entry/$post->{id}")
-                    unless $post->{owner} == logged_in_user->{id};
+    if ($post->{owner} != logged_in_user->{id}) {
+        notify_user(logged_in_user->{id}, $post->{owner}, 'comment', $post->{name}, "/entry/$post->{id}")
+    }
 
     redirect "/~$user_id/entry/$post_id#comments-end";
 };

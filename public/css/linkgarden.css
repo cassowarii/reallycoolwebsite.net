@@ -783,3 +783,7 @@ img.icon {
 .notification-list li.unread-notification a:hover {
     background: linear-gradient(to right, var(--dark-hl-color) 0, var(--light-hl-color) 50px calc(100% - 50px), var(--dark-hl-color) 100%);
 }
+
+.notification-text {
+    display: inline;
+}

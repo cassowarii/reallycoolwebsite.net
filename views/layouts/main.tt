@@ -33,6 +33,15 @@
                 <div id="user-bar">
                     <a href="/~<% user.name %>">~<% user.name %></a>
                     <div style="float:right">
+                        <% IF unread_notifications %>
+                            <a href="/notifications" style="display:inline-block;margin-right:4px" title="Unread notifications">
+                                <img src="/menu/notifs-unread.png" width="24" height="24">
+                            </a>
+                        <% ELSE %>
+                            <a href="/notifications" style="display:inline-block;margin-right:4px" title="Notifications">
+                                <img src="/menu/notifs-empty.png" width="24" height="24">
+                            </a>
+                        <% END %>
                         <a href="/~<% user.name %>/all" style="display:inline-block;margin-right:4px" title="All my entries">
                             <img src="/menu/all.png" width="24" height="24">
                         </a>

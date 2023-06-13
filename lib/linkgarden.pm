@@ -13,6 +13,7 @@ use Encode;
 use Parse::BBCode;
 
 use util;
+use notifications;
 use basicpages;
 use userpages;
 use posting;

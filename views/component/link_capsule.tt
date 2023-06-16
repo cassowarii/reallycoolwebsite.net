@@ -6,6 +6,7 @@
         </div>
     <% END %>
     <div class="added-date">
+        <hr style="display: none">
         <a href="/~<% link.username %>/entry/<% link.id %>" title="added <% link.created %><% IF link.created != link.updated %>, updated <%link.updated %><% END %>">
             <% link.created_day %>
         </a>
@@ -64,7 +65,9 @@
                 </a>
             <% END %>
         <% END %>
-        <% link.formatted_description %>
+        <div>
+            <% link.formatted_description %>
+        </div>
     </div>
     <div class="link-bottom-part">
         <div class="link-tags">

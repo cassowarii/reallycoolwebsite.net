@@ -1,37 +1,38 @@
 <div id="nav">
     <style>
-        #logobox {
+        .logobox {
             background-image: url(<% request.uri_base %>/images/logos/small-logo-<% color %>.png);
         }
     </style>
-    <div class="nav-flex-container">
-        <div class="nav-logo-container">
+    <span class="nav-flex-container">
+        <span class="nav-logo-container">
             <a href="/" title="reallycoolwebsite.net">
-                <div id="logobox" role="img"></div>
+                <span class="logobox" role="img"></span>
+                <span style="display: none">reallycoolwebsite.net</span>
             </a>
-        </div>
-        <div class="nav-path-container">
+        </span>
+        <span class="nav-path-container">
             <% FOREACH component IN nav %>
-                <div class="nav-path-component">
-                    <div class="nav-flex-container">
+                <span class="nav-path-component">
+                    <span class="nav-flex-container">
                         <% IF component.link %>
-                            <div class="nav-arrow-container">
+                            <span class="nav-arrow-container">
                                 &gt;
-                            </div>
-                            <div class="nav-path-component">
+                            </span>
+                            <span class="nav-path-component">
                                 <a href="<% component.link %>"><% component.name | html_entity %></a>
-                            </div>
+                            </span>
                         <% ELSE %>
-                            <div class="nav-arrow-container">
+                            <span class="nav-arrow-container">
                                 &gt;
-                            </div>
-                            <div class="nav-path-component">
+                            </span>
+                            <span class="nav-path-component">
                                 <b><% component.name | html_entity %></b>
-                            </div>
+                            </span>
                         <% END %>
-                    </div>
-                </div>
+                    </span>
+                </span>
             <% END %>
-        </div>
-    </div>
+        </span>
+    </span>
 </div>

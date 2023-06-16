@@ -1,4 +1,4 @@
-<div id="container" style="width: 400px">
+<div class="box" style="width: 400px">
     <div class="top-control-bar">
         <a href="<% from_page %>">&larr; back</a>
     </div>

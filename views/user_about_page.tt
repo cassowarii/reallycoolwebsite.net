@@ -1,4 +1,4 @@
-<div id="container">
+<div class="box">
     <% INCLUDE component/nav.tt %>
 
     <h1>About <% profile.name %>'s <% profile.page_name %></h1>

@@ -1,4 +1,4 @@
-        <div id="container">
+        <div class="box">
             <% INCLUDE component/nav.tt %>
         </div>
         <div style="link-list">
@@ -7,7 +7,7 @@
             <% IF link.username == user.name %>
                 <!-- Only show hearts for our own entries -->
                 <% IF link.nhearts > 0 %>
-                    <div class="link" id="hearts">
+                    <div class="box" id="hearts">
                         &#9829;
                         <% FOREACH liker IN link.likers %>
                             <a href="/~<% liker | url %>">~<% liker | html_entity %></a>
@@ -16,7 +16,7 @@
                 <% END %>
             <% END %>
         </div>
-        <div id="list-footer">
+        <div class="box">
             <% IF next_id OR prev_id %>
                 <div id="prev-next-post">
                 <% IF next_id %>

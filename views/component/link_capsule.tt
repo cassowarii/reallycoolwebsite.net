@@ -1,4 +1,4 @@
-<div class="link">
+<div class="box">
     <div class="anchor-container"><div class="anchor" id="entry-id-<% link.id %>"></div></div>
     <% IF show_username %>
         <div class="top-control-bar">

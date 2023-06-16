@@ -1,12 +1,14 @@
 <% IF enable_comments OR num_comments > 0 %>
     <div id="comments">
         <% IF num_comments > 0 %>
-            <div class="top-control-bar" style="font-weight: bold">
-                <% IF num_comments == 1 %>
-                    1 comment
-                <% ELSE %>
-                    <% num_comments %> comments
-                <% END %>
+            <div class="top-control-bar">
+                <h3>
+                    <% IF num_comments == 1 %>
+                        1 comment
+                    <% ELSE %>
+                        <% num_comments %> comments
+                    <% END %>
+                </h3>
             </div>
             <% FOREACH comment IN comments %>
                 <% IF comment.id == edit_comment %>

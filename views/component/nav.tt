@@ -4,6 +4,7 @@
             background-image: url(<% request.uri_base %>/images/logos/small-logo-<% color %>.png);
         }
     </style>
+    <hr style="display: none">
     <span class="nav-flex-container">
         <span class="nav-logo-container">
             <a href="/" title="reallycoolwebsite.net">

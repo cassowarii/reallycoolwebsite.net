@@ -23,6 +23,7 @@ my $bbcode_parser = Parse::BBCode->new({
         tt => '<tt>%s</tt>',
         code => '<tt>%s</tt>',
         quote => 'block:<blockquote>%s</blockquote>',
+        s => '<s>%s</s>',
     },
 });
 

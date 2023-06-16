@@ -120,6 +120,7 @@ a:hover {
 #nav .nav-logo-container {
     flex: 0 0 auto;
     padding-right: 4px;
+    display: inline-block;
 }
 
 #nav .nav-arrow-container {
@@ -129,6 +130,7 @@ a:hover {
 
 #nav .nav-path-container {
     flex: 1 1 auto;
+    display: block;
 }
 
 #nav .nav-path-component {
@@ -569,7 +571,7 @@ img.icon {
     vertical-align: bottom;
 }
 
-#logobox {
+.logobox {
     image-rendering: pixelated;
     background-size: 32px 32px;
     display: inline-block;

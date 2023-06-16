@@ -1,4 +1,4 @@
-<div id="container">
+<div class="box">
     <% INCLUDE component/nav.tt %>
 
     <div style="text-align: center; margin-bottom: 20px; margin-top: 30px">

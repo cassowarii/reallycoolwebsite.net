@@ -1,4 +1,4 @@
-            <div id="container" style="width: 400px">
+            <div class="box" style="width: 400px">
                 <h1>Error</h1>
                 The server says:
                 <blockquote>

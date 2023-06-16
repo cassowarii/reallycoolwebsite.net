@@ -28,7 +28,7 @@
             </div>
         <% END %>
 
-        <div id="container" style="width: 400px">
+        <div class="box" style="width: 400px">
             <form method = "post" lpformnum="1" class="login-form major-form">
                 <h1>Log in</h1>
 

@@ -1,4 +1,4 @@
-<div id="container" class="caution">
+<div class="box" class="caution">
     <% INCLUDE component/nav.tt %>
 
     <div style="margin: 30px; margin-top: 40px">
@@ -9,7 +9,7 @@
 
 <% INCLUDE component/link_capsule.tt hide_control_bar=1 %>
 
-<div id="list-footer" style="text-align: center">
+<div class="box" style="text-align: center">
     <form method="post" class="caution" style="margin: -10px -10px -8px -10px; padding: 20px">
         <input type="submit" name="yes_really_delete" class="cool-button" value="Yes, really delete forever!">
     </form>

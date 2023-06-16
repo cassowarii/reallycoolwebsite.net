@@ -1,4 +1,4 @@
-<div id="container">
+<div class="box">
     <% INCLUDE component/nav.tt %>
 
     <p>This page shows the posts you've bookmarked.</p>
@@ -18,13 +18,13 @@
 <% IF links.size > 0 %>
     <% INCLUDE component/links_list.tt %>
 <% ELSE %>
-    <div class="link">
+    <div class="box">
         You can bookmark posts by clicking the <img src="/icons/emptybookmark.png" style="vertical-align:middle"> icon in the corner of an entry.
         Bookmarks are not shown to the person who made the entry.
     </div>
 <% END %>
 
-<div id="list-footer">
+<div class="box">
     <% IF (not first_page or not last_page) %>
         <% IF first_page == 0 %>
             <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>

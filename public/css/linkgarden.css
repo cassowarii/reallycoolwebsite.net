@@ -264,6 +264,11 @@ img.youtube-thumbnail {
     height: 32px;
 }
 
+.top-control-bar h3 {
+    font-size: inherit;
+    margin: 0;
+}
+
 .top-control-bar,
 .control-bar {
     background: linear-gradient(to bottom, var(--light-hl-color), var(--dark-hl-color));

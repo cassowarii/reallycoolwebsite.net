@@ -22,20 +22,20 @@
                 <% IF next_id %>
                     <div class="next">
                         <a href="<% base_list_url %>/entry/<% next_id %>">
-                            <div class="arrow">&larr;</div>
-                            <div class="title">
+                            <span class="arrow">&larr;</span>
+                            <span class="title">
                                 <% next_title %>
-                            </div>
+                            </span>
                         </a>
                     </div>
                 <% END %>
                 <% IF prev_id %>
                     <div class="prev">
                         <a href="<% base_list_url %>/entry/<% prev_id %>">
-                            <div class="title">
+                            <span class="title">
                                 <% prev_title %>
-                            </div>
-                            <div class="arrow">&rarr;</div>
+                            </span>
+                            <span class="arrow">&rarr;</span>
                         </a>
                     </div>
                 <% ELSE %>
@@ -47,6 +47,7 @@
             <div style="text-align: center"><a href="/~<% profile.name %>/random">Random entry from ~<% profile.name %></a></div>
             <hr>
             <div style="text-align: center"><a href="/~<% profile.name %>"><% profile.name %>'s <% profile.page_name %></a></div>
+            <hr style="display: none">
         </div>
     </div>
 

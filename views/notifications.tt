@@ -16,8 +16,10 @@
                         <div class="notification-text">
                             <% IF notification.type == 'comment' %>
                                 <b><% notification.from_username %></b> commented on '<% notification.msg %>'
+                            <% ELSIF notification.type == 'ping' %>
+                                <b><% notification.from_username %></b> mentioned you in a comment on '<% notification.msg %>'
                             <% ELSE %>
-                                <b><% notification.from_usename %></b> : <% notification.msg %>
+                                <b><% notification.from_username %></b> : <% notification.msg %>
                             <% END %>
                         </div>
                     </a>

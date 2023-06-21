@@ -43,7 +43,7 @@
         <% IF NOT user OR user.disable_youtube_embeds %>
             <a href="https://youtube.com/watch?v=<% link.youtube | url %>&autoplay=1" target="_blank" class="youtube-link">
                 <div class="youtube-thumbnail-container">
-                    <img src="https://img.youtube.com/vi/<% link.youtube | url %>/hqdefault.jpg" class="youtube-thumbnail" alt="">
+                    <img src="https://img.youtube.com/vi/<% link.youtube | url %>/hqdefault.jpg" class="youtube-thumbnail" alt="" loading="lazy">
                 </div>
             </a>
         <% ELSE %>
@@ -57,11 +57,11 @@
         <% IF link.image_url %>
             <% IF link.url == "self" %>
                 <a href="/~<% link.username %>/entry/<% link.id %>">
-                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="" loading="lazy">
                 </a>
             <% ELSE %>
                 <a href="<% link.url | url %>" target="_blank">
-                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="" loading="lazy">
                 </a>
             <% END %>
         <% END %>

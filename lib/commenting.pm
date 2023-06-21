@@ -51,7 +51,6 @@ get '/comment/:id/?' => sub {
     my $comment = get_comment($comment_id);
 
     if (not defined $comment) {
-        say "got here!";
         status 'not_found';
         return template 'err', {
             error => "No comment with ID $comment_id found. It may have been deleted."
@@ -73,9 +72,16 @@ post '/~:user/entry/:id/leave-comment/?' => require_login sub {
 
     leave_comment($post_id, $sticker, $comment_text);
 
+    my $stmt = database('viewer')->prepare(
+        "SELECT MAX(id) max_id FROM linkgarden_comments"
+    );
+    $stmt->execute();
+    my $result = $stmt->fetchrow_hashref;
+    my $new_comment_id = $result->{max_id};
+
     # Notify about the comment unless we're commenting on our own post
     if ($post->{owner} != logged_in_user->{id}) {
-        notify_user(logged_in_user->{id}, $post->{owner}, 'comment', $post->{name}, "/entry/$post->{id}")
+        notify_user(logged_in_user->{id}, $post->{owner}, 'comment', $post->{name}, "/comment/$new_comment_id")
     }
 
     redirect "/~$user_id/entry/$post_id#comments-end";

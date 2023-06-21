@@ -76,7 +76,7 @@
             <% END %>
         </div>
         <div class="link-icon">
-            <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %>">
+            <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %> sticker">
         </div>
     </div>
 

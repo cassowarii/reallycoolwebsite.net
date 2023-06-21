@@ -31,6 +31,15 @@
         <% ELSE %>
             <% IF user %>
                 <div id="user-bar">
+                    <% IF from_page %>
+                        <a href="/user-menu?page=<% from_page %>" style="display:inline-block;margin-right:4px" title="User menu">
+                            <img src="/menu/menu.png" width="24" height="24">
+                        </a>
+                    <% ELSE %>
+                        <a href="/user-menu?page=<% request.path %>" style="display:inline-block;margin-right:4px" title="User menu">
+                            <img src="/menu/menu.png" width="24" height="24">
+                        </a>
+                    <% END %>
                     <a href="/~<% user.name %>">~<% user.name %></a>
                     <div style="float:right">
                         <% IF unread_notifications %>
@@ -42,21 +51,12 @@
                                 <img src="/menu/notifs-empty.png" width="24" height="24">
                             </a>
                         <% END %>
-                        <a href="/~<% user.name %>/all" style="display:inline-block;margin-right:4px" title="All my entries">
-                            <img src="/menu/all.png" width="24" height="24">
-                        </a>
                         <a href="/new-entry" style="display:inline-block;margin-right:4px" title="New entry">
                             <img src="/menu/new.png" width="24" height="24">
                         </a>
-                        <% IF from_page %>
-                            <a href="/user-menu?page=<% from_page %>" style="display:inline-block;margin-right:4px" title="User menu">
-                                <img src="/menu/menu.png" width="24" height="24">
-                            </a>
-                        <% ELSE %>
-                            <a href="/user-menu?page=<% request.path %>" style="display:inline-block;margin-right:4px" title="User menu">
-                                <img src="/menu/menu.png" width="24" height="24">
-                            </a>
-                        <% END %>
+                        <a href="/~<% user.name %>/all" style="display:inline-block;margin-right:4px" title="All my entries">
+                            <img src="/menu/all.png" width="24" height="24">
+                        </a>
                     </div>
                 </div>
             <% ELSE %>

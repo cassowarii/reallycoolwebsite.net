@@ -6,7 +6,7 @@
     }
 </style>
 
-<div id="container" class="search-bg-thing">
+<div class="box" class="search-bg-thing">
     <% INCLUDE component/nav.tt %>
 
     <div style="padding: 30px 0">

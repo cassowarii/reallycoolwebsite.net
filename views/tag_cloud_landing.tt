@@ -1,4 +1,4 @@
-<div id="container">
+<div class="box">
     <% INCLUDE component/nav.tt %>
 
     <% INCLUDE component/tag_cloud.tt %>

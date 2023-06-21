@@ -1,5 +1,5 @@
 <% IF enable_comments OR num_comments > 0 %>
-    <div id="comments">
+    <div class="box" id="comments">
         <% IF num_comments > 0 %>
             <div class="top-control-bar">
                 <h3>

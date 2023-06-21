@@ -1,4 +1,4 @@
-<div id="container">
+<div class="box">
     <% INCLUDE component/nav.tt %>
 
     <% IF tagdesc %>
@@ -24,7 +24,7 @@
 
 <% INCLUDE component/links_list.tt %>
 
-<div id="list-footer">
+<div class="box">
     <% IF (not first_page or not last_page) %>
         <% IF first_page == 0 %>
             <p style="float: left; margin: 0"><a href="<% base_list_url %>/page/<% pagenum - 1 %>">&larr; Previous page</a></p>

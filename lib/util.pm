@@ -17,6 +17,8 @@ use HTML::Escape qw( escape_html );
 
 use List::Util qw( max min );
 
+use constant USERNAME_REGEX => qr{(?<![a-zA-Z0-9_\./:\#])~([a-z](?:[a-zA-Z0-9_\.-]*[a-z0-9])?)};
+
 my $bbcode_parser = Parse::BBCode->new({
     tags => {
         Parse::BBCode::HTML->defaults,
@@ -272,7 +274,7 @@ sub format_text {
     $txt = $bbcode_parser->render($txt);
 
     # Convert ~usernames to links.
-    $txt =~ s{(?<=[^a-zA-Z0-9_./:#-])~([a-z]([a-zA-Z0-9_.-]*[a-z0-9])?)}{<a href="/~@{[ lc $1 ]}/">~$1</a>}gi;
+    $txt =~ s{@{[ USERNAME_REGEX ]}}{<a href="/~@{[ lc $1 ]}/">~$1</a>}gi;
 
     # Convert #tag-names to links.
     $txt =~ s{(?<=[^a-zA-Z0-9_./:#-])#([a-zA-Z]([a-zA-Z0-9'_.-]*[a-z0-9])?)}{<a href="/~$username/tag/@{[ lc $1 ]}">#$1</a>}gi;

@@ -43,7 +43,7 @@
         <% IF NOT user OR user.disable_youtube_embeds %>
             <a href="https://youtube.com/watch?v=<% link.youtube | url %>&autoplay=1" target="_blank" class="youtube-link">
                 <div class="youtube-thumbnail-container">
-                    <img src="https://img.youtube.com/vi/<% link.youtube | url %>/hqdefault.jpg" class="youtube-thumbnail" alt="YouTube thumbnail for <% link.name | html_entity %>">
+                    <img src="https://img.youtube.com/vi/<% link.youtube | url %>/hqdefault.jpg" class="youtube-thumbnail" alt="">
                 </div>
             </a>
         <% ELSE %>
@@ -57,11 +57,11 @@
         <% IF link.image_url %>
             <% IF link.url == "self" %>
                 <a href="/~<% link.username %>/entry/<% link.id %>">
-                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="illustrative image for <% link.name %>">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="">
                 </a>
             <% ELSE %>
                 <a href="<% link.url | url %>" target="_blank">
-                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="illustrative image for <% link.name %>">
+                    <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="">
                 </a>
             <% END %>
         <% END %>
@@ -76,7 +76,7 @@
             <% END %>
         </div>
         <div class="link-icon">
-            <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %>">
+            <img src="/icons/<% link.icon %>.png" class="icon" alt="<% link.icon %> sticker">
         </div>
     </div>
 

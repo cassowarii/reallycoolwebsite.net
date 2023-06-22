@@ -12,12 +12,14 @@
             <% FOREACH notification IN notifications %>
                 <li <% IF notification.unread %>class="unread-notification"<% END %>>
                     <a href="/notifications/<% notification.id %>">
-                        <div class="added-date"><% notification.created %></div>
+                        <div class="added-date" style="margin-left: 20px"><% notification.created %></div>
                         <div class="notification-text">
                             <% IF notification.type == 'comment' %>
                                 <b><% notification.from_username %></b> commented on '<% notification.msg %>'
-                            <% ELSIF notification.type == 'ping' %>
+                            <% ELSIF notification.type == 'ping' OR notification.type == 'comment_ping' %>
                                 <b><% notification.from_username %></b> mentioned you in a comment on '<% notification.msg %>'
+                            <% ELSIF notification.type == 'post_ping' %>
+                                <b><% notification.from_username %></b> mentioned you in a post: '<% notification.msg %>'
                             <% ELSE %>
                                 <b><% notification.from_username %></b> : <% notification.msg %>
                             <% END %>

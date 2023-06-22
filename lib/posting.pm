@@ -178,6 +178,9 @@ post '/new-entry/?' => require_login sub {
     $stmt->execute();
     my $entry_id = $stmt->fetchrow_hashref()->{last_id};
 
+    # Ping mentioned users
+    my @pinged = resolve_pings($description, 'post_ping', $name, "/entry/$entry_id");
+
     # Check if an image was attached
     if ($update_img) {
         # Save image URL

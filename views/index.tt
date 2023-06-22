@@ -4,16 +4,20 @@
     <div style="text-align: center; margin-bottom: 20px; margin-top: 30px">
         <img src="images/logos/full-logo-<% color %>.png" alt="reallycoolwebsite.net" class="logo" style="width: 352px; height: 40px">
     </div>
-    <p>Hi there! Welcome to reallycoolwebsite.net.</p>
+    <p>Hi there! Welcome to <b>reallycoolwebsite.net</b>.</p>
 
     <p>This is a website for what I'm calling <b>&lsquo;internet scrapbooking&rsquo;</b>.
     It's like a mix between a &lsquo;social bookmarking&rsquo; site and a
-    micro-blogging platform -- you save pages you find interesting from the internet,
+    micro-blogging platform -- you can save pages you find interesting from the internet,
     but you can include little quotes or small snippet screenshots and write descriptions
-    about why you like each page.</p>
+    about why you like each page. You can also make text posts if you so desire, so the
+    site can also be used as a kind of blog platform.</p>
 
-    <p>The site is also designed to be very lightweight and usable even on bad connections.
-    I also added a &ldquo;follow&rdquo; feature so you can follow other people's accounts.</p>
+    <p>The site is also designed to be very lightweight and should be fairly usable on bad connections.
+    It is written on top of stable, mature technology and does not use any Javascript
+    (unless you enable Youtube embedding in your user settings.)
+    I also added some light social features: a &ldquo;follow&rdquo; feature so you can follow
+    other people's accounts, and you can like and comment on people's posts.</p>
 
     <% IF not user %>
         <p>If you'd like to register for an account, you can do so
@@ -25,5 +29,5 @@
 
     <p>Ideally I will include more &lsquo;discovery&rsquo; features in the future,
     so people can actually find accounts on the website, but right now you'll have
-    to tell people about the existence of your page manually, lol.</p>
+    to tell people about the existence of your page manually...</p>
 </div>

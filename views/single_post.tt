@@ -4,16 +4,13 @@
         <div style="link-list">
             <% INCLUDE component/link_capsule.tt %>
 
-            <% IF link.username == user.name %>
-                <!-- Only show hearts for our own entries -->
-                <% IF link.nhearts > 0 %>
-                    <div class="box" id="hearts">
-                        &#9829;
-                        <% FOREACH liker IN link.likers %>
-                            <a href="/~<% liker | url %>">~<% liker | html_entity %></a>
-                        <% END %>
-                    </div>
-                <% END %>
+            <% IF link.nhearts > 0 %>
+                <div class="box" id="hearts">
+                    &#9829;
+                    <% FOREACH liker IN link.likers %>
+                        <a href="/~<% liker | url %>">~<% liker | html_entity %></a>
+                    <% END %>
+                </div>
             <% END %>
         </div>
         <div class="box">

@@ -8,6 +8,7 @@
 
 html {
     min-height: 100%;
+    scroll-padding-top: 50px;
 }
 
 body {
@@ -330,9 +331,17 @@ img.logo {
     background-color: var(--dark-accent-color);
     color: white;
     vertical-align: bottom;
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
+    z-index: 5;
+}
+
+:target::before {
+    display: block;
+    padding-top: 50px;
+    margin-top: -50px;
+    content: '';
 }
 
 #user-bar a {

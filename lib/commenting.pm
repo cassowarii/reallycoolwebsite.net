@@ -157,9 +157,19 @@ post '/comment/:id/delete/?' => require_login sub {
     my $can_delete = ($author == logged_in_user->{id} || $post->{owner} == logged_in_user->{id});
     return redirect "/comment/$comment_id" unless $can_delete;
 
-    my $stmt = database('link_creator')->prepare(
-        "UPDATE linkgarden_comments SET author = 0, comment = '', is_deleted = 1 WHERE id = ?"
-    );
+    my $stmt;
+    if ($post->{owner} eq logged_in_user->{id}) {
+        # If it's a comment on our own post, nuke it entirely rather than marking it deleted
+        $stmt = database('link_creator')->prepare(
+            "DELETE FROM linkgarden_comments WHERE id = ?"
+        );
+    } else {
+        # If it's a comment on a different post, leave the actual comment entry in the DB,
+        # just mark it as "is deleted" (though we do actually delete the comment text)
+        $stmt = database('link_creator')->prepare(
+            "UPDATE linkgarden_comments SET author = 0, comment = '', is_deleted = 1 WHERE id = ?"
+        );
+    }
     $stmt->execute($comment_id);
 
     redirect "/entry/$post_id#comments";

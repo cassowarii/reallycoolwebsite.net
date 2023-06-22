@@ -83,12 +83,12 @@
     <% IF NOT hide_control_bar %>
         <% IF user %>
             <div class="control-bar">
+                <% IF link.nhearts > 0 %>
+                    <div class="control-bar-heart-count">
+                        <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
+                    </div>
+                <% END %>
                 <% IF link.username == user.name %>
-                    <% IF link.nhearts > 0 %>
-                        <div class="control-bar-heart-count">
-                            <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
-                        </div>
-                    <% END %>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
                 <% ELSE %>

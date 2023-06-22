@@ -406,4 +406,37 @@ sub validate_email($) {
     return;
 }
 
+# Find and notify pinged users from a set of text
+sub resolve_pings {
+    my ($txt, $ping_type, $post_name, $link) = @_;
+
+    my @pinged_ids;
+    {
+        my @pings = ( $txt =~ /@{[ USERNAME_REGEX ]}/g );
+        say "pings: ", (join '; ', @pings);
+
+        # Put in a hash to find unique pings
+        my %pinged_users = ();
+        @pinged_users{@pings} = @pings;
+
+        # Remove initial ~'s from usernames
+        my @pinged_users = map { s/^~//; $_ } keys %pinged_users;
+
+        if (@pinged_users) {
+            # Find pinged users' IDs
+            my $stmt = database('viewer')->prepare(
+                "SELECT id FROM linkgarden_users WHERE name IN (" . (join ",", (('?') x @pinged_users)) . ")"
+            );
+            $stmt->execute(@pinged_users);
+            @pinged_ids = map { $_->{id} } @{$stmt->fetchall_arrayref({})};
+
+            for my $ping_id (@pinged_ids) {
+                notify_user(logged_in_user->{id}, $ping_id, $ping_type, $post_name, $link) unless $ping_id == logged_in_user->{id};
+            }
+        }
+    }
+
+    return @pinged_ids;
+}
+
 true;

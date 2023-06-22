@@ -80,33 +80,7 @@ post '/~:user/entry/:id/leave-comment/?' => require_login sub {
     my $new_comment_id = $result->{max_id};
 
     # Find pinged users and notify them
-    my @pinged_ids;
-    {
-        my @pings = ( $comment_text =~ /@{[ USERNAME_REGEX ]}/g );
-        say "pings: ", (join '; ', @pings);
-
-        # Put in a hash to find unique pings
-        my %pinged_users = ();
-        @pinged_users{@pings} = @pings;
-
-        # Remove initial ~'s from usernames
-        my @pinged_users = map { s/^~//; $_ } keys %pinged_users;
-        say "pinged_users: ", (join '; ', @pinged_users);
-
-        if (@pinged_users) {
-            # Find pinged users' IDs
-            $stmt = database('viewer')->prepare(
-                "SELECT id FROM linkgarden_users WHERE name IN (" . (join ",", (('?') x @pinged_users)) . ")"
-            );
-            $stmt->execute(@pinged_users);
-            @pinged_ids = map { $_->{id} } @{$stmt->fetchall_arrayref({})};
-            say "pinged ids: ", (join '; ', @pinged_ids);
-
-            for my $ping_id (@pinged_ids) {
-                notify_user(logged_in_user->{id}, $ping_id, 'ping', $post->{name}, "/comment/$new_comment_id") unless $ping_id == logged_in_user->{id};
-            }
-        }
-    }
+    my @pinged_ids = resolve_pings($comment_text, 'comment_ping', $post->{name}, "/comment/$new_comment_id");
 
     # Notify about the comment unless we're commenting on our own post or were already pinged
     if ($post->{owner} != logged_in_user->{id} and not grep { $_ == $post->{owner} } @pinged_ids) {

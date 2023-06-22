@@ -48,6 +48,10 @@ sub notif_page {
     # we *were* on the last page -- so cut it off.
     pop @$notifs if scalar @$notifs > NOTIF_PAGE_SIZE;
 
+    # We don't want to cache this page, we want to re-request it every time we navigate
+    # here.
+    response_headers 'Cache-Control' => 'no-cache';
+
     return template 'notifications', {
         linkgarden::common_template_params(),
         nav => [

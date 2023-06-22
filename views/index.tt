@@ -13,15 +13,22 @@
     about why you like each page. You can also make text posts if you so desire, so the
     site can also be used as a kind of blog platform.</p>
 
+    <p>The website does not run ads, collect user behavioral data, or do other creepy things.
+    It is run by me as a side/hobby project, not a commercial venture, so I don't intend to
+    change these things. Currently, it is funded out of my own pocket.</p>
+
     <p>The site is also designed to be very lightweight and should be fairly usable on bad connections.
-    It is written on top of stable, mature technology and does not use any Javascript
-    (unless you enable Youtube embedding in your user settings.)
+    It is written on top of stable, mature technology (Perl on FCGI with Dancer2, if you must know)
+    and it does not use any Javascript
+    (unless you enable inline Youtube embedding in your user settings.)
     I also added some light social features: a &ldquo;follow&rdquo; feature so you can follow
     other people's accounts, and you can like and comment on people's posts.</p>
 
     <% IF not user %>
-        <p>If you'd like to register for an account, you can do so
-        <a href="/register">here</a>.
+        <p>If these ideas appeal to you, you're welcome to join the site!
+        You can register for an account <a href="/register">here</a>.
+        The site is still in early stages, so my apologies if you run into
+        unexpected issues.
         <!-- For examples of what to post on the site, view recently-updated pages
         <a href="/recent">here</a>. (There aren't many accounts yet... but maybe
         that will change in future!) --></p>

@@ -30,13 +30,13 @@
     <% IF link.url == "self" %>
         <h2><a href="/~<% link.username %>/entry/<% link.id %>" target="_blank"><% link.name | html_entity %></h2>
     <% ELSE %>
-        <h2><a href="<% link.url | url %>" target="_blank"><% link.name | html_entity %></a></h2>
+        <h2><a href="<% link.url %>" target="_blank"><% link.name | html_entity %></a></h2>
     <% END %>
     <div class="link-url">
         <% IF link.url == "self" %>
             <a href="/~<% link.username %>/entry/<% link.id %>" target="_blank">/~<% link.username %>/entry/<% link.id %></a>
         <% ELSE %>
-            <a href="<% link.url | url %>" target="_blank"><% link.url | url %></a>
+            <a href="<% link.url %>" target="_blank"><% link.url %></a>
         <% END %>
     </div>
     <% IF link.youtube %>
@@ -60,7 +60,7 @@
                     <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="" loading="lazy">
                 </a>
             <% ELSE %>
-                <a href="<% link.url | url %>" target="_blank">
+                <a href="<% link.url %>" target="_blank">
                     <img src="<% request.uri_base %>/<% link.image_url | url %>" class="link-image" alt="" loading="lazy">
                 </a>
             <% END %>

@@ -17,7 +17,7 @@ use HTML::Escape qw( escape_html );
 
 use List::Util qw( max min );
 
-use constant USERNAME_REGEX => qr{(?<![a-zA-Z0-9_\./:\#])~([a-z](?:[a-zA-Z0-9_\.-]*[a-z0-9])?)};
+use constant USERNAME_REGEX => qr{(?<![a-z0-9_\./:\#])~([a-z](?:[a-z0-9_\.-]*[a-z0-9])?)}i;
 
 my $bbcode_parser = Parse::BBCode->new({
     tags => {

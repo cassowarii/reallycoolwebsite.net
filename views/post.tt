@@ -16,7 +16,7 @@
                 </div>
                 <div class="flex-flexy">
                     <label for="link-radio-button" class="block-label">Link to URL:</label>
-                    <input type="text" name="url" id="url-box" value="<% UNLESS link.url == "self" %><% link.url %><% END %>" maxlength=150>
+                    <input type="text" name="url" id="url-box" value="<% UNLESS link.url == "self" %><% link.url | url %><% END %>" maxlength=150>
                 </div>
             </div>
             <div class="flex-holder-start">
@@ -65,7 +65,7 @@
                 <label for="attached-image" class="block-label">
                     Attached image:
                 </label>
-                <img src="<% request.uri_base %>/<% img_url %>" id="attached-image" class="over-image" style="display: block; margin-bottom: 10px">
+                <img src="<% request.uri_base %>/<% img_url | url %>" id="attached-image" class="over-image" style="display: block; margin-bottom: 10px">
                 <!--input type="checkbox" name="remove_attachment" id="remove-img-box" style="margin-bottom: 10px">
                 <label for="remove-img-box">Remove attached image</label-->
                 <input type="submit" name="remove_attachment" value="Remove attached image">
@@ -118,8 +118,8 @@
         <div class="highlight-box-top" style="text-align: right">[Preview]</div>
 
         <% IF post_type == "link" %>
-            <h2><a href="<% link.url %>" target="_blank"><% link.name | html_entity %></a></h2>
-            <div class="link-url"><a href="<% link.url %>" target="_blank"><% link.url %></a></div>
+            <h2><a href="<% link.url | url %>" target="_blank"><% link.name | html_entity %></a></h2>
+            <div class="link-url"><a href="<% link.url | url %>" target="_blank"><% link.url | url %></a></div>
         <% ELSE %>
             <h2><% link.name | html_entity %></h2>
             <div class="link-url"><a href="#">/~<% user.name %>/entry/???</a></div>
@@ -139,10 +139,10 @@
         <div class="link-description">
             <% IF img_url %>
                 <% IF link.url == "self" %>
-                    <img src="<% request.uri_base %>/<% img_url %>" class="link-image">
+                    <img src="<% request.uri_base %>/<% img_url | url %>" class="link-image">
                 <% ELSE %>
-                    <a href="<% link.url %>" target="_blank">
-                        <img src="<% request.uri_base %>/<% img_url %>" class="link-image">
+                    <a href="<% link.url | url %>" target="_blank">
+                        <img src="<% request.uri_base %>/<% img_url | url %>" class="link-image">
                     </a>
                 <% END %>
             <% END %>

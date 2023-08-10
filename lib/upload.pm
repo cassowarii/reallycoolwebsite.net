@@ -62,7 +62,7 @@ sub handle_upload {
     my $upload_path;
     do {
         $upload_path = UPLOAD_DIRECTORY . gen_filename() . '.png';
-    } while (-f $upload_path or $upload_path =~ /jew/);
+    } while (-f PUBLIC_DIRECTORY . $upload_path or $upload_path =~ /jew/);
 
     my $im = Image::Magick->new;
     my $result = $im->Read($tempname);

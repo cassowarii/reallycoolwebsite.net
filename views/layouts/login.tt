@@ -29,9 +29,14 @@
         <% END %>
 
         <div class="box" style="width: 400px">
-            <form method = "post" lpformnum="1" class="login-form major-form">
-                <h1>Log in</h1>
+            <div id="nav">
+                <a href="/">
+                    <img src="/images/logos/small-logo-blank.png" alt="reallycoolwebsite.net" width="32" height="32">
+                </a>
+                &gt; <b>log in</b>
+            </div>
 
+            <form method = "post" lpformnum="1" class="login-form major-form">
                 <div class="settings-input">
                     <label for="username" class="block-label">Username:</label>
                     <input type="text" name="username" id="username" class="form-control" required autofocus>

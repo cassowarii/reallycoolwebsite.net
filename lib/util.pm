@@ -229,10 +229,10 @@ sub process_link_from_db {
 
     # If link is to a Youtube video, add a key for that.
     if ($link{url} =~ m{^https?://(www\.)?youtube\.com/watch\?v=.+$}) {
-        $link{url} =~ m{/watch\?v=(.+)$};
+        $link{url} =~ m{v=([^&]+)};
         $link{youtube} = $1;
     } elsif ($link{url} =~ m{^https?://(www\.)?youtu\.be/.+$}) {
-        $link{url} =~ m{/(.+)$};
+        $link{url} =~ m{youtu\.be/([^&/=]+)$};
         $link{youtube} = $1;
     }
 

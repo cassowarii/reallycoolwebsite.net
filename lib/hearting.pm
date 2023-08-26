@@ -111,7 +111,9 @@ sub associate_user_with_post {
     );
     $stmt->execute($link_id);
     my $result = $stmt->fetchrow_hashref;
-    die "You cannot heart or bookmark your own post!\n" if $result->{owner} == logged_in_user->{id};
+    if ($table eq 'linkgarden_likes') {
+        die "You cannot heart your own post!\n" if $result->{owner} == logged_in_user->{id};
+    }
 
     # INSERT IGNORE so that double-likes don't cause errors
     $stmt = database('link_creator')->prepare(

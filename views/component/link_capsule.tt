@@ -106,16 +106,16 @@
                         <% END %>
                     <% END %>
                 </div>
+                <% IF link.bookmark %>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/unbookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/bookmark.png" title="Remove bookmark"></span></a>
+                <% ELSE %>
+                    <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/bookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/emptybookmark.png" title="Add bookmark"></span></a>
+                <% END %>
                 <% IF link.username == user.name %>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>
                 <% ELSE %>
                     <!-- If logged in but it's not our post, show heart in control bar instead -->
-                    <% IF link.bookmark %>
-                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/unbookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/bookmark.png" title="Remove bookmark"></span></a>
-                    <% ELSE %>
-                        <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/bookmark?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/emptybookmark.png" title="Add bookmark"></span></a>
-                    <% END %>
                     <% IF link.hearted %>
                         <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/unheart?page=<% request.uri | url %>"><span class="heart-container"><img src="/icons/heart.png" title="Unheart"></span></a>
                     <% ELSE %>

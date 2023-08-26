@@ -22,7 +22,7 @@
                 </a>
             <% ELSE %>
                 <a href="/~<% link.username %>/entry/<% link.id %>#comments">
-                    <img src="/icons/comment.png" alt="Comments:" class="comment-icon" title="Leave a comment">
+                    <img src="/icons/comment.png" alt="No comments" class="comment-icon" title="Leave a comment">
                 </a>
             <% END %>
         <% END %>
@@ -83,11 +83,29 @@
     <% IF NOT hide_control_bar %>
         <% IF user %>
             <div class="control-bar">
-                <% IF link.nhearts > 0 %>
-                    <div class="control-bar-heart-count">
+                <div class="control-bar-heart-count">
+                    <% IF link.nhearts > 0 %>
                         <a href="/~<% link.username | url %>/entry/<% link.id %>#hearts">&#9829;x<% link.nhearts %></a>
-                    </div>
-                <% END %>
+                    <% END %>
+                    <% IF link.enable_comments or link.num_comments > 0 %>
+                        <% IF link.nhearts > 0 %>
+                            &middot;
+                        <% END %>
+                        <% IF link.num_comments == 1 %>
+                            <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                                <% link.num_comments %> comment
+                            </a>
+                        <% ELSIF link.num_comments > 0 %>
+                            <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                                <% link.num_comments %> comments
+                            </a>
+                        <% ELSE %>
+                            <a href="/~<% link.username %>/entry/<% link.id %>#comments">
+                                comment
+                            </a>
+                        <% END %>
+                    <% END %>
+                </div>
                 <% IF link.username == user.name %>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/edit?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/edit.png" title="Edit"></span></a>
                     <a role="button" href="/~<% link.username | url %>/entry/<% link.id %>/delete?page=<% request.path | url %>"><span class="heart-container"><img src="/icons/delete.png" title="Delete"></span></a>

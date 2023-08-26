@@ -286,7 +286,7 @@ img.youtube-thumbnail {
     height: 1em;
 }
 
-.control-bar-heart-count a {
+.control-bar-heart-count a:first-child {
     margin-left: 0;
 }
 

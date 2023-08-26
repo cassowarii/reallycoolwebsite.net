@@ -34,6 +34,9 @@ sub notif_page {
     $stmt->execute(logged_in_user->{id}, $offset, $query_page_size);
 
     my $notifs = $stmt->fetchall_arrayref({});
+    for my $notif (@$notifs) {
+        $notif->{msg} = Encode::decode('utf8', $notif->{msg});
+    }
 
     my $first_page = 0;
     my $last_page = 1;

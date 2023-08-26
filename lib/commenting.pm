@@ -90,7 +90,7 @@ post '/~:user/entry/:id/leave-comment/?' => require_login sub {
         @pinged_users{@pings} = @pings;
 
         # Remove initial ~'s from usernames
-        my @pinged_users = map { s/^~//; $_ } keys %pinged_users;
+        my @pinged_users = map { s/^[@~]//; $_ } keys %pinged_users;
         say "pinged_users: ", (join '; ', @pinged_users);
 
         if (@pinged_users) {

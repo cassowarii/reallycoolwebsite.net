@@ -17,9 +17,13 @@ use HTML::Escape qw( escape_html );
 
 use List::Util qw( max min );
 
-use constant USERNAME_REGEX => qr{(?<![a-z0-9_\./:\#])~([a-z](?:[a-z0-9_\.-]*[a-z0-9])?)}i;
+use constant USERNAME_REGEX => qr{(?<![a-z0-9_\./:\#])([@~])([a-z](?:[a-z0-9_\.-]*[a-z0-9])?)}i;
 
 my $bbcode_parser = Parse::BBCode->new({
+    url_finder => {
+        max_length => 0,
+        format => '<a href="%s" target="_blank" rel="nofollow">%s</a>',
+    },
     tags => {
         Parse::BBCode::HTML->defaults,
         tt => '<tt>%s</tt>',
@@ -274,7 +278,7 @@ sub format_text {
     $txt = $bbcode_parser->render($txt);
 
     # Convert ~usernames to links.
-    $txt =~ s{@{[ USERNAME_REGEX ]}}{<a href="/~@{[ lc $1 ]}/">~$1</a>}gi;
+    $txt =~ s{@{[ USERNAME_REGEX ]}}{<a href="/~@{[ lc $2 ]}/">$1$2</a>}gi;
 
     # Convert #tag-names to links.
     $txt =~ s{(?<=[^a-zA-Z0-9_./:#-])#([a-zA-Z]([a-zA-Z0-9'_.-]*[a-z0-9])?)}{<a href="/~$username/tag/@{[ lc $1 ]}">#$1</a>}gi;
